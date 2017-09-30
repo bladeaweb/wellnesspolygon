@@ -1,0 +1,15 @@
+name = WP Core
+description = Core feature for site settings.
+core = 7.x
+package = WP
+version = 7.x-1.0
+dependencies[] = context
+dependencies[] = context_ui
+dependencies[] = features
+dependencies[] = strongarm
+features[context][] = global
+features[ctools][] = context:context:3
+features[ctools][] = file_entity:file_default_displays:1
+features[ctools][] = strongarm:strongarm:1
+features[features_api][] = api:2
+project path = sites/all/modules/custom

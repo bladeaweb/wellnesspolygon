@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * @file
+ * Code for the WP Core feature.
+ */
+
+include_once 'wp_core.features.inc';
+
+/**
+ * @file
+ * Code for vp_core feature.
+ */
+
+include_once 'wp_core.constants.php';
+
+/**
+ * Include additional early bootstrap files.
+ *
+ * This allows to organise contrib module-related hook implementations into
+ * standalone files.
+ *
+ * Note that most of the modules are not available at this stage and
+ * another inclusion is required in hook_init() for performance reasons.
+ */
+foreach (module_list() as $module_name) {
+  $module_include_file = dirname(__FILE__) . '/includes/' . $module_name . '.inc';
+  if (file_exists($module_include_file)) {
+    require_once $module_include_file;
+  }
+}
