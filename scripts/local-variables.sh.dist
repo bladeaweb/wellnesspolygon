@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+##
+# Default Variables needed for using the Acquia Cloud API.
+#
+# NOTE: Create a local-variables.sh file and populate it with values you want to override.
+# Generally this will only be $DEPLOY_API_USER_NAME and $DEPLOY_API_USER_PASS.
+#
+
+DEPLOY_API_USER_NAME=${DEPLOY_API_USER_NAME:-}
+DEPLOY_API_USER_PASS=${DEPLOY_API_USER_PASS:-}
+DEPLOY_API_DB_SITE=devcloud:vpoly
+DEPLOY_API_DB_ENV=prod
+DEPLOY_API_DB_NAME=vpoly
+DEPLOY_API_DB_NAME_LEGACY=vicpoly_d6_source
+
+# Keep previous copies. On CI it goes anyway, on local, you could change this to 1 to delete them.
+DEPLOY_API_DB_OLD_CACHE_REMOVE=0
+DEPLOY_API_DB_DECOMPRESS_BACKUP=0
+
+LOCAL_VARIABLES_FILE_DIST="${BASH_SOURCE[0]}"
+LOCAL_VARIABLES_FILE="${LOCAL_VARIABLES_FILE_DIST%.*}"
+
+# Include local-variables.sh if it exists to override default variables.
+if [ -f $LOCAL_VARIABLES_FILE ]; then
+  source $LOCAL_VARIABLES_FILE
+fi

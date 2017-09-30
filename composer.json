@@ -1,0 +1,421 @@
+{
+  "name": "sharkov/wellnesspolygon",
+  "description": "Drupal 7 site for Wellness Polygon",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packages.drupal.org/7"
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "library/bootstrap",
+        "version": "3.3.6",
+        "type": "drupal-library",
+        "dist": {
+          "url": "https://github.com/twbs/bootstrap-sass/archive/v3.3.6.zip",
+          "type": "zip"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "library/ckeditor",
+        "version": "4.6.2",
+        "type": "drupal-library",
+        "dist": {
+          "url": "https://download.cksource.com/CKEditor/CKEditor/CKEditor%204.6.2/ckeditor_4.6.2_standard.zip",
+          "type": "zip"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "library/fontawesome",
+        "version": "4.7.0",
+        "type": "drupal-library",
+        "dist": {
+          "url": "https://github.com/FortAwesome/Font-Awesome/archive/v4.7.0.zip",
+          "type": "zip"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "library/flexslider",
+        "version": "2.5.0",
+        "type": "drupal-library",
+        "dist": {
+          "url": "https://github.com/woocommerce/FlexSlider/archive/version/2.5.0.zip",
+          "type": "zip"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "library/nova-poshta-guzzle",
+        "version": "2.0",
+        "type": "drupal-library",
+        "dist": {
+          "url": "https://github.com/vladdancer/nova-poshta-guzzle/archive/2.x.zip",
+          "type": "zip"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "sharkov/patches",
+        "version": "1.0.0",
+        "type": "metapackage",
+        "extra": {
+          "patches": {
+            "drupal/features": [
+              {
+                "title": "Notice: Undefined property: stdClass::$status in features_export_form",
+                "url": "https://www.drupal.org/files/issues/undefined-property-status-2324973-19.patch"
+              }
+            ],
+            "drupal/features_banish": [
+              {
+                "title": "Add support for wildcards",
+                "url": "https://www.drupal.org/files/issues/add-wildcard-support-2494417-4.patch"
+              }
+            ],
+            "drupal/persistent_update": [
+              {
+                "title": "Add an ability to bypass all persistent updates",
+                "url": "https://www.drupal.org/files/issues/bypass-all-persistent-updates-2824493-3.patch"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "type": "git",
+      "url": "https://github.com/zeyus/composer-patches-plugin.git"
+    }
+  ],
+  "require": {
+    "composer/installers": "^1.0.2.4",
+    "davidbarratt/custom-installer": "dev-master",
+    "derhasi/composer-preserve-paths": "0.1.*",
+    "drupal/admin_menu": "3.0-rc5",
+    "drupal/admin_views": "^1.6",
+    "drupal/adminimal_admin_menu": "^1.7",
+    "drupal/adminrole": "^1.1",
+    "drupal/ajax_comments": "^1.3",
+    "drupal/ajax_facets": "^3.7",
+    "drupal/allow_all_file_extensions": "^1.1",
+    "drupal/auto_nodetitle": "^1.0",
+    "drupal/autocomplete_deluxe": "^2.3",
+    "drupal/autocomplete_widgets": "1.0-rc1",
+    "drupal/backup_migrate": "^3.2",
+    "drupal/block_views": "1.0-beta2",
+    "drupal/boost": "^1.2",
+    "drupal/bootstrap": "^3.13",
+    "drupal/button_field": "1.0-beta1",
+    "drupal/cck": "3.0-alpha3",
+    "drupal/cctags": "^1.10",
+    "drupal/ckeditor": "^1.18",
+    "drupal/ckeditor_link": "^2.4",
+    "drupal/cloud_zoom": "^1.1",
+    "drupal/coffee": "^2.3",
+    "drupal/colorbox": "^2.13",
+    "drupal/commerce": "^1.13",
+    "drupal/commerce_3d_secure": "1.x-dev",
+    "drupal/commerce_addressbook": "3.0-rc4",
+    "drupal/commerce_ajax_basket_link": "^1.42",
+    "drupal/commerce_autosku": "^1.2",
+    "drupal/commerce_backoffice": "^1.5",
+    "drupal/commerce_checkout_buttons": "1.0-alpha1",
+    "drupal/commerce_checkout_login": "2.0-beta2",
+    "drupal/commerce_checkout_progress": "^1.5",
+    "drupal/commerce_checkout_redirect": "^2.0",
+    "drupal/commerce_cop": "1.0-beta2",
+    "drupal/commerce_currency_settings": "^1.2",
+    "drupal/commerce_custom_order_status": "^1.0",
+    "drupal/commerce_custom_product": "1.0-beta2",
+    "drupal/commerce_liqpay": "1.x-dev",
+    "drupal/commerce_login_step": "1.x-dev",
+    "drupal/commerce_moa": "^1.6",
+    "drupal/commerce_option": "2.0-beta1",
+    "drupal/commerce_payment_icons": "1.0-beta1",
+    "drupal/commerce_physical": "1.x-dev",
+    "drupal/commerce_price_decimals_formatter": "^1.0",
+    "drupal/commerce_privat24": "^1.0",
+    "drupal/commerce_product_attributes": "1.0-beta3",
+    "drupal/commerce_product_bundle": "1.0-alpha6",
+    "drupal/commerce_product_comparison": "^1.1",
+    "drupal/commerce_product_urls": "^1.21",
+    "drupal/commerce_saleprice": "1.0-beta4",
+    "drupal/commerce_search": "1.0-rc6",
+    "drupal/commerce_shipping": "^2.2",
+    "drupal/commerce_single_address": "^1.2",
+    "drupal/commerce_user_profile_pane": "1.0-beta1",
+    "drupal/composer_manager": "^1.8",
+    "drupal/contentanalysis": "1.0-beta7",
+    "drupal/context": "^3.7",
+    "drupal/ctools": "^1.12",
+    "drupal/custom_formatters": "^2.4",
+    "drupal/date": "^2.10",
+    "drupal/dc_cart_ajax": "^1.0",
+    "drupal/dc_co_pages": "^1.0",
+    "drupal/delta": "^2.0",
+    "drupal/devel": "^1.5",
+    "drupal/devel_themer": "1.x-dev",
+    "drupal/drupal": "7.56",
+    "drupal/drupal_helpers": "^1.1",
+    "drupal/ds": "^2.14",
+    "drupal/editablefields": "1.0-alpha3",
+    "drupal/entity": "^1.8",
+    "drupal/entitycache": "^1.5",
+    "drupal/entityreference": "^1.5",
+    "drupal/eva": "^1.3",
+    "drupal/facetapi": "^1.5",
+    "drupal/facetapi_bonus": "^1.2",
+    "drupal/facetapi_pretty_paths": "^1.4",
+    "drupal/fb_post": "^2.3",
+    "drupal/features": "^2.10",
+    "drupal/features_banish": "^1.1",
+    "drupal/field_collection": "1.0-beta12",
+    "drupal/field_collection_table": "1.0-beta5",
+    "drupal/field_group": "^1.5",
+    "drupal/field_permissions": "^1.0",
+    "drupal/file_entity": "^2.5",
+    "drupal/fitvids": "^1.17",
+    "drupal/fivestar": "^2.2",
+    "drupal/flag": "^3.9",
+    "drupal/flexslider": "2.0-rc2",
+    "drupal/geolocation": "^1.6",
+    "drupal/globalredirect": "^1.5",
+    "drupal/google_analytics": "^2.4",
+    "drupal/hansel": "^1.6",
+    "drupal/hierarchical_select": "3.0-beta8",
+    "drupal/hybridauth": "^2.15",
+    "drupal/i18n": "^1.18",
+    "drupal/image_delta_formatter": "1.0-rc1",
+    "drupal/imagefield_crop": "^2.0",
+    "drupal/imagematrix": "1.x-dev",
+    "drupal/imce": "^1.11",
+    "drupal/imce_crop": "^1.1",
+    "drupal/imce_mkdir": "^1.0",
+    "drupal/imce_rename": "^1.3",
+    "drupal/imce_tools": "^1.2",
+    "drupal/inline_entity_form": "^1.8",
+    "drupal/insert": "^1.4",
+    "drupal/jquery_update": "3.0-alpha5",
+    "drupal/l10n_update": "^2.2",
+    "drupal/libraries": "^2.3",
+    "drupal/link": "^1.4",
+    "drupal/masked_input": "^2.1",
+    "drupal/media": "^2.11",
+    "drupal/media_oembed": "^2.7",
+    "drupal/media_youtube": "^3.5",
+    "drupal/menu_attributes": "^1.0",
+    "drupal/menu_token": "1.0-beta7",
+    "drupal/metatag": "^1.22",
+    "drupal/module_filter": "^2.1",
+    "drupal/multiupload_filefield_widget": "^1.13",
+    "drupal/multiupload_imagefield_widget": "^1.3",
+    "drupal/multivalue_settings": "1.0-beta2",
+    "drupal/node_page_admin": "^1.0",
+    "drupal/novaposhta": "1.x-dev",
+    "drupal/oauth": "^3.4",
+    "drupal/page_theme": "^1.3",
+    "drupal/panelizer": "^3.4",
+    "drupal/panels": "^3.9",
+    "drupal/paragraphs": "1.0-rc5",
+    "drupal/paragraphs_pack": "1.0-alpha5",
+    "drupal/pathauto": "^1.3",
+    "drupal/payment": "^1.16",
+    "drupal/payment_commerce": "^1.7",
+    "drupal/persistent_update": "^1.0",
+    "drupal/phone": "1.0-beta1",
+    "drupal/physical": "^1.0",
+    "drupal/privatemsg": "^1.4",
+    "drupal/profile2": "^1.3",
+    "drupal/radix_layouts": "^3.4",
+    "drupal/rb": "1.x-dev",
+    "drupal/realname": "^1.3",
+    "drupal/redirect": "1.0-rc3",
+    "drupal/references": "^2.2",
+    "drupal/references_dialog": "1.0-beta2",
+    "drupal/rules": "^2.10",
+    "drupal/schemaorg": "1.0-rc1",
+    "drupal/search404": "^1.5",
+    "drupal/search_api": "^1.22",
+    "drupal/search_api_db": "^1.6",
+    "drupal/search_api_ranges": "^1.5",
+    "drupal/search_api_sorts": "^1.7",
+    "drupal/security_review": "^1.3",
+    "drupal/seo_checklist": "^4.1",
+    "drupal/session_api": "1.0-rc1",
+    "drupal/shield": "1.3",
+    "drupal/simple_field_formatter": "^1.0",
+    "drupal/site_verify": "^1.2",
+    "drupal/sociallogin": "^5.0",
+    "drupal/special_menu_items": "^2.0",
+    "drupal/strongarm": "^2.0",
+    "drupal/styleguide": "^1.1",
+    "drupal/taxonomy_container": "^1.2",
+    "drupal/taxonomy_display": "^1.1",
+    "drupal/taxonomy_manager": "^1.0",
+    "drupal/taxonomy_menu": "^1.5",
+    "drupal/term_ref_autocomplete": "1.0-alpha3",
+    "drupal/token": "^1.7",
+    "drupal/token_formatters": "^1.2",
+    "drupal/total_control": "^2.4",
+    "drupal/transliteration": "^3.2",
+    "drupal/twitter": "^6.2",
+    "drupal/ulogin": "^1.10",
+    "drupal/user_picture_field": "1.0-rc1",
+    "drupal/uuid": "^1.0",
+    "drupal/variable": "^2.5",
+    "drupal/view_unpublished": "^1.2",
+    "drupal/viewfield": "^2.1",
+    "drupal/views": "^3.18",
+    "drupal/views_bulk_operations": "^3.4",
+    "drupal/views_data_export": "^3.2",
+    "drupal/views_flag_refresh": "^1.3",
+    "drupal/views_flipped_table": "^1.1",
+    "drupal/views_infinite_scroll": "^2.1",
+    "drupal/views_megarow": "^1.7",
+    "drupal/views_slideshow": "^3.9",
+    "drupal/vkxp": "^2.21",
+    "drupal/votingapi": "^2.12",
+    "drupal/webform": "^4.15",
+    "drupal/webform_ajax": "^1.1",
+    "drupal/wysiwyg": "^2.4",
+    "drupal/xautoload": "^4.5.0",
+    "drupal/xmlsitemap": "^2.3",
+    "guzzlehttp/guzzle": "5.2.0",
+    "library/bootstrap": "^3.3",
+    "library/ckeditor": "^4.6.2",
+    "library/flexslider": "^2.5",
+    "library/fontawesome": "^4.7",
+    "library/nova-poshta-guzzle": "^2.0",
+    "netresearch/composer-patches-plugin": "dev-patch-path@dev",
+    "sharkov/patches": "*",
+    "symfony/filesystem": "^3.2.8"
+  },
+  "require-dev": {
+    "beet/box": ">=0.6.0",
+    "drupal/coder": "^8.2",
+    "mouf/nodejs-installer": "^1.0",
+    "drupal/drupal-extension": "^v3.3.0",
+    "consolidation/Robo": "~1"
+  },
+  "autoload": {
+    "classmap": [
+      "scripts/composer/",
+      "scripts/Robo/"
+    ],
+    "psr-4":{
+      "Robo\\":"src"
+    }
+  },
+  "config": {
+    "process-timeout": 0,
+    "sort-packages": true
+  },
+  "scripts": {
+    "cs": "Utilities\\composer\\CodeStyle::cs",
+    "cbf": "Utilities\\composer\\CodeStyle::cbf",
+    "build": [
+      "@composer install --no-progress --no-interaction",
+      "@_start-vm",
+      "@build-db"
+    ],
+    "rebuild": [
+      "@cleanup",
+      "@build"
+    ],
+    "rebuild-full": [
+      "@cleanup-full",
+      "@build"
+    ],
+    "build-db": [
+      "drush @local.wellnesspolygon.com.ua sql-drop -y",
+      "gunzip -c .data/wellnewsspolygon.sql.gz | drush @local.wellnesspolygon.com.ua sql-cli",
+      "drush @local.wellnesspolygon.com.ua en wp_core -y",
+      "drush @local.wellnesspolygon.com.ua updb -y"
+    ],
+    "cleanup": [
+      "Utilities\\composer\\DrupalSettings::delete",
+      "@_remove-drupal-docroot",
+      "@_remove-dependencies"
+    ],
+    "cleanup-full": [
+      "@cleanup",
+      "@_remove-vm"
+    ],
+    "build-theme": "@_local-exec-grunt",
+    "_build-theme-prod": "@composer build-theme -- prod",
+    "_remove-core-gitignore": "@composer _unlink-recursive -- docroot/.gitignore",
+    "_remove-dependencies": [
+      "@composer _unlink-recursive -- vendor",
+      "@composer _unlink-recursive -- node_modules"
+    ],
+    "_remove-drupal-docroot": "Utilities\\composer\\General::unlinkDocroot",
+    "_start-vm": "@composer _global-exec -- ignore-error vagrant up",
+    "_remove-vm": [
+      "@composer _global-exec -- ignore-error vagrant destroy -f",
+      "@composer _unlink-recursive -- .vagrant",
+      "@composer _unlink-recursive -- .beetbox",
+      "@composer _unlink-recursive -- .Vagrantfile"
+    ],
+    "_unlink-recursive": "Utilities\\composer\\General::unlinkRecursiveScript",
+    "_global-exec": "Utilities\\composer\\General::globalExec",
+
+    "_local-exec-grunt": "Utilities\\composer\\General::localExecGrunt",
+    "post-install-cmd": [
+      "@_remove-core-gitignore",
+      "Utilities\\composer\\DrupalSettings::create",
+      "npm install",
+      "npm rebuild node-sass",
+      "@_build-theme-prod"
+    ],
+    "post-update-cmd": [
+      "@_remove-core-gitignore",
+      "Utilities\\composer\\DrupalSettings::create",
+      "npm install",
+      "npm rebuild node-sass",
+      "@_build-theme-prod"
+    ],
+    "deploy-artefact": "robo --ansi --load-from $(pwd)/scripts/Robo/BuildArtefact.php artefact"
+  },
+  "extra": {
+    "installer-paths": {
+      "docroot": ["type:drupal-core"],
+      "docroot/sites/all/modules/contrib/{$name}": ["type:drupal-module"],
+      "docroot/sites/all/themes/contrib/{$name}": ["type:drupal-theme"],
+      "docroot/sites/all/libraries/{$name}": ["type:drupal-library"],
+      "docroot/sites/all/drush/{$name}": ["type:drupal-drush"]
+    },
+    "preserve-paths": [
+      "docroot/sites/all/modules/custom",
+      "docroot/sites/all/themes/custom",
+      "docroot/sites/all/drush",
+      "docroot/sites/default/settings.php",
+      "docroot/sites/default/files"
+    ],
+    "beetbox": {
+      "beet_domain": "local.wellnesspolygon.com.ua",
+      "beet_root": "{{ beet_base }}/docroot",
+      "php_version": "5.6",
+      "vagrant_memory": "2048",
+      "php_memory_limit": "512M"
+    },
+    "mouf": {
+      "nodejs": {
+        "forceLocal": true
+      }
+    }
+  }
+}
