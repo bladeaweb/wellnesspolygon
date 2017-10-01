@@ -1,0 +1,16 @@
+//
+// Typography params.
+//
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: $font-first;
+  font-size: $font-size-base;
+  font-style: normal;
+  font-weight: $fw-400;
+  letter-spacing: .5px;
+  line-height: 1.43;
+}

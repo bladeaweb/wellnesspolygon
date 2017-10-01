@@ -4,3 +4,28 @@
 
 // Set the proper directory for the Bootstrap Glyphicon font.
 $icon-font-path: '../../bootstrap/assets/fonts/bootstrap/';
+
+// Fonts.
+$font-first: 'PT Sans';
+$font-second: 'PT Sans Narrow';
+
+// Font weights.
+$fw-400: 400;
+$fw-700: 700;
+
+// Font sizes
+$font-size-base: 14px;
+$font-size-small: 12px;
+$font-size-large: 16px;
+
+// Headers
+$headings-font-family: $font-second;
+$headings-line-height: 1.43;
+$headings-font-weight: $fw-400;
+$font-size-h1: 1.5rem;
+$font-size-h2: 1.25rem;
+$font-size-h3: 1.125rem;
+$font-size-h4: $font-size-large;
+$font-size-h5: $font-size-small;
+$font-size-h6: .625rem;
+
