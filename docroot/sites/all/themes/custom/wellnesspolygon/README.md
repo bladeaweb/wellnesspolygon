@@ -1,1 +1,1 @@
-# Wellness Polygon theme 
+# Wellness Polygon theme

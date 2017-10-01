@@ -11,10 +11,8 @@
 
   <file>scripts/composer</file>
   <file>scripts/Robo</file>
-  <file>tests</file>
   <file>docroot/sites/all/modules/custom</file>
   <file>docroot/sites/all/themes/custom</file>
-  <file>docroot/sites/default/settings.php</file>
 
   <!-- Exclude all minified files. -->
   <exclude-pattern>*\.min\.js</exclude-pattern>
@@ -74,17 +72,5 @@
   <!--Allow version in custom modules.-->
   <rule ref="Drupal.InfoFiles.AutoAddedKeys.Version">
     <exclude-pattern>custom/*.info</exclude-pattern>
-  </rule>
-
-  <!--Allow uncommented functions in tests as they usually provide enough
-  information from their names.-->
-  <rule ref="Drupal.Commenting.DocComment.MissingShort">
-    <exclude-pattern>tests/behat/bootstrap/*\.php</exclude-pattern>
-    <exclude-pattern>tests/unit/*.Test\.php</exclude-pattern>
-    <exclude-pattern>tests/unit/*.TestCase\.php</exclude-pattern>
-  </rule>
-  <rule ref="Drupal.Commenting.FunctionComment.Missing">
-    <exclude-pattern>tests/unit/*.Test\.php</exclude-pattern>
-    <exclude-pattern>tests/unit/*.TestCase\.php</exclude-pattern>
   </rule>
 </ruleset>

@@ -1,0 +1,24 @@
+//
+// Main styles for project
+//
+
+body {
+  background: {
+    attachment: fixed;
+    color: $neutral;
+    image: url('../images/bg.jpg');
+    position: left top;
+    repeat: no-repeat;
+    size: cover;
+  }
+}
+
+.main-container {
+  background: {
+    color: $base;
+  }
+  padding: {
+    bottom: 20px;
+    top: 20px;
+  }
+}
