@@ -1,0 +1,47 @@
+//
+// Breakpoints
+//
+
+// Breakpoint and up.
+@mixin mobile-first($name) {
+  @if $name == xs {
+    @media (min-width: $screen-xs) {
+      @content;
+    }
+  } @else if $name == sm {
+    @media (min-width: $screen-sm) {
+      @content;
+    }
+  } @else if $name == md {
+    @media (min-width: $screen-md) {
+      @content;
+    }
+  } @else if $name == lg {
+    @media (min-width: $screen-lg) {
+      @content;
+    }
+  } @else {
+    // sass-lint:disable no-warn
+    @warn 'Breakpoint mixin supports: xs, sm, md, lg';
+  }
+}
+
+// Breakpoint and down.
+@mixin desktop-first($name) {
+  @if $name == xs {
+    @media (max-width: $screen-xs-max) {
+      @content;
+    }
+  } @else if $name == sm {
+    @media (max-width: $screen-sm-max) {
+      @content;
+    }
+  } @else if $name == md {
+    @media (max-width: $screen-md-max) {
+      @content;
+    }
+  }  @else {
+    // sass-lint:disable no-warn
+    @warn 'Breakpoint mixin supports: xs, sm, md';
+  }
+}

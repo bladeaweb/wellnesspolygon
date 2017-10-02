@@ -1,0 +1,49 @@
+//
+// Main styles for project
+//
+
+body {
+  background: {
+    attachment: fixed;
+    color: $neutral;
+    image: url('../images/bg.jpg');
+    position: left top;
+    repeat: no-repeat;
+    size: cover;
+  }
+}
+
+.main-container {
+  background: {
+    color: $base;
+  }
+  padding: {
+    bottom: 20px;
+    top: 20px;
+  }
+}
+
+.footer {
+  background: {
+    color: $base;
+  }
+  border-color: $gray-light;
+  margin: {
+    bottom: 0;
+    top: 0;
+  }
+  padding: {
+    bottom: 0;
+    top: 0;
+  }
+
+  .copyright {
+    background: $dark;
+    color: $base;
+    font-size: $font-size-small;
+    position: relative;
+    margin: 0 -15px;
+    padding: 10px 15px;
+    text-align: center;
+  }
+}

@@ -1,0 +1,27 @@
+options:
+  merge-default-rules: true
+  formatter: stylish
+# File Options
+files:
+  include:
+    - 'docroot/sites/all/themes/custom/**/*.scss'
+    - 'docroot/sites/all/modules/custom/**/*.scss'
+  ignore:
+    - 'docroot/sites/all/themes/custom/**/_overrides.scss'
+    - 'docroot/sites/all/themes/custom/**/_coffee.scss'
+# Rule Configuration
+rules:
+  indentation:
+    - 1
+    -
+      size: 2
+  variable-name-format:
+    - 1
+    -
+      allow-leading-underscore: true
+  nesting-depth: 0
+  placeholder-in-extend: 0
+  mixins-before-declarations: 0
+  no-url-domains: 0
+  no-url-protocols: 0
+

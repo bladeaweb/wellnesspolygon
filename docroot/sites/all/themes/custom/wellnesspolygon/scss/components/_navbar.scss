@@ -1,0 +1,44 @@
+//
+// Navbar styles
+//
+
+.navbar {
+  &.navbar-default {
+    background: {
+      color: $base;
+    }
+    border: 0;
+    border-radius: 0;
+    margin-bottom: 0;
+  }
+
+  &.container {
+    @include mobile-first(sm) {
+      max-width: $screen-sm;
+    }
+
+    @include mobile-first(md) {
+      max-width: $screen-md;
+    }
+
+    @include mobile-first(lg) {
+      max-width: $screen-lg;
+    }
+  }
+
+  .logo {
+    img {
+      @include desktop-first(xs) {
+        max-width: 220px;
+      }
+    }
+  }
+
+  .navbar-toggle {
+    margin: (56px - 34px) / 2 11px (56px - 34px) / 2 0;
+  }
+
+  .menu {
+
+  }
+}

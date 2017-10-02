@@ -1,0 +1,47 @@
+//
+// Main menu styles.
+//
+
+.block-system-main-menu {
+  background: $dark;
+
+  & > .menu {
+    align-content: stretch;
+    align-items: stretch;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    font-size: $font-size-small;
+    justify-content: flex-start;
+    transition: .3s;
+
+    @include mobile-first(sm) {
+      font-size: $font-size-base;
+    }
+    @include mobile-first(md) {
+      font-size: $font-size-large;
+    }
+
+    & > li {
+      & > a {
+        color: $base;
+        font-weight: $fw-400;
+        padding: 10px 15px;
+
+        &.active,
+        &:focus,
+        &:focus,
+        &:hover {
+          background: {
+            color: $neutral-dark;
+          }
+          color: $base;
+        }
+
+        @include mobile-first(md) {
+          padding: 15px 20px;
+        }
+      }
+    }
+  }
+}
