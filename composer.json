@@ -65,36 +65,6 @@
           "type": "zip"
         }
       }
-    },
-    {
-      "type": "package",
-      "package": {
-        "name": "sharkov/patches",
-        "version": "1.0.0",
-        "type": "metapackage",
-        "extra": {
-          "patches": {
-            "drupal/features": [
-              {
-                "title": "Notice: Undefined property: stdClass::$status in features_export_form",
-                "url": "https://www.drupal.org/files/issues/undefined-property-status-2324973-19.patch"
-              }
-            ],
-            "drupal/features_banish": [
-              {
-                "title": "Add support for wildcards",
-                "url": "https://www.drupal.org/files/issues/add-wildcard-support-2494417-4.patch"
-              }
-            ],
-            "drupal/persistent_update": [
-              {
-                "title": "Add an ability to bypass all persistent updates",
-                "url": "https://www.drupal.org/files/issues/bypass-all-persistent-updates-2824493-3.patch"
-              }
-            ]
-          }
-        }
-      }
     }
   ],
   "require": {
@@ -298,7 +268,6 @@
     "library/fontawesome": "^4.7",
     "library/nova-poshta-guzzle": "^2.0",
     "netresearch/composer-patches-plugin": "^1.0",
-    "sharkov/patches": "*",
     "symfony/filesystem": "^3.2.8"
   },
   "require-dev": {
@@ -368,7 +337,6 @@
     ],
     "_unlink-recursive": "Utilities\\composer\\General::unlinkRecursiveScript",
     "_global-exec": "Utilities\\composer\\General::globalExec",
-
     "_local-exec-grunt": "Utilities\\composer\\General::localExecGrunt",
     "post-install-cmd": [
       "@_remove-core-gitignore",
@@ -401,12 +369,25 @@
       "docroot/sites/default/settings.php",
       "docroot/sites/default/files"
     ],
-    "beetbox": {
-      "beet_domain": "local.wellnesspolygon.com.ua",
-      "beet_root": "{{ beet_base }}/docroot",
-      "php_version": "5.6",
-      "vagrant_memory": "2048",
-      "php_memory_limit": "512M"
+    "patches": {
+      "drupal/features": [
+        {
+          "title": "Notice: Undefined property: stdClass::$status in features_export_form",
+          "url": "https://www.drupal.org/files/issues/undefined-property-status-2324973-19.patch"
+        }
+      ],
+      "drupal/features_banish": [
+        {
+          "title": "Add support for wildcards",
+          "url": "https://www.drupal.org/files/issues/add-wildcard-support-2494417-4.patch"
+        }
+      ],
+      "drupal/persistent_update": [
+        {
+          "title": "Add an ability to bypass all persistent updates",
+          "url": "https://www.drupal.org/files/issues/bypass-all-persistent-updates-2824493-3.patch"
+        }
+      ]
     },
     "mouf": {
       "nodejs": {
