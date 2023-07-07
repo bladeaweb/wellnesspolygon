@@ -10,3 +10,4 @@
 /docroot/sites/default/files/
 /docroot/sites/default/settings.beetbox.php
 /docroot/sites/default/default.settings.php
+.env
