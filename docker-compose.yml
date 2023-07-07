@@ -13,7 +13,7 @@ services:
       - internal
 
   drupal:
-    image: drupal:php7.4-fpm-buster
+    image: drupal:php7.4-fpm
     container_name: drupal
     depends_on:
       - mysql
