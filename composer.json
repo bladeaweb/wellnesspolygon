@@ -95,10 +95,6 @@
           }
         }
       }
-    },
-    {
-      "type": "git",
-      "url": "https://github.com/zeyus/composer-patches-plugin.git"
     }
   ],
   "require": {
@@ -310,7 +306,7 @@
     "drupal/coder": "^8.2",
     "mouf/nodejs-installer": "^1.0",
     "drupal/drupal-extension": "^v3.3.0",
-    "consolidation/Robo": "~1"
+    "consolidation/robo": "~1"
   },
   "autoload": {
     "classmap": [
