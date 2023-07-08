@@ -31,10 +31,10 @@ $databases = [
     [
       'default' =>
         [
-          'database' => 'wellnesspolygon',
-          'username' => 'bichicota_1',
-          'password' => 'XL=lu~gD1?]@',
-          'host' => 'localhost',
+          'database' => getenv('MYSQL_DATABASE'),
+          'username' => getenv('drupal7'),
+          'password' => getenv('MYSQL_PASSWORD'),
+          'host' => 'mysql',
           'port' => '',
           'driver' => 'mysql',
           'prefix' => '',
@@ -57,4 +57,9 @@ if (file_exists(DRUPAL_ROOT . '/' . conf_path() . '/settings.beetbox.php')) {
 // Keep this code block at the end of this file to take full effect.
 if (file_exists(DRUPAL_ROOT . '/' . conf_path() . '/settings.local.php')) {
   include DRUPAL_ROOT . '/' . conf_path() . '/settings.local.php';
+}
+
+// Lando settings.
+if (getenv('LANDO_INFO') && file_exists(DRUPAL_ROOT . '/' . conf_path() . '/settings.lando.php')) {
+  include DRUPAL_ROOT . '/' . conf_path() . '/settings.lando.php';
 }

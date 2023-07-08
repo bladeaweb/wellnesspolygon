@@ -1,0 +1,205 @@
+<?php
+
+/**
+ * @file
+ * Provides a gallery formatter for the Image Zoom module.
+ */
+
+/**
+ * Implements hook_field_formatter().
+ */
+function imagezoom_gallery_field_formatter_info() {
+  $formatters = array(
+    'imagezoom_gallery' => array(
+      'label' => t('Image Zoom Gallery'),
+      'field types' => array('image'),
+      'settings' => array(
+        'imagezoom_zoom_type' => '',
+        'imagezoom_display_style' => '',
+        'imagezoom_zoom_style' => '',
+        'imagezoom_thumb_style' => '',
+        'imagezoom_disable' => '',
+        'imagezoom_disable_width' => '',
+        'imagezoom_additional' => '',
+      ),
+    ),
+  );
+
+  return $formatters;
+}
+
+/**
+ * Implements hook_field_formatter_settings_form().
+ */
+function imagezoom_gallery_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
+  $element = imagezoom_field_formatter_settings_form($field, $instance, $view_mode, $form, $form_state);
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];
+
+  $element['imagezoom_thumb_style'] = $element['imagezoom_display_style'];
+  $element['imagezoom_thumb_style']['#title'] = t('Thumbnail image style');
+  $element['imagezoom_thumb_style']['#default_value'] = $settings['imagezoom_thumb_style'];
+
+  return $element;
+}
+
+/**
+ * Implements hook_field_formatter_settings_summary().
+ */
+function imagezoom_gallery_field_formatter_settings_summary($field, $instance, $view_mode) {
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];
+
+  $summary = imagezoom_field_formatter_settings_summary($field, $instance, $view_mode);
+  $summary = explode('<br />', $summary);
+
+  $image_styles = image_style_options(FALSE);
+  // Unset possible 'No defined styles' option.
+  unset($image_styles['']);
+  // Styles could be lost because of enabled/disabled modules that define
+  // their styles in code.
+  $summary[] = t('Thumbnail image style: @style', array(
+    '@style' => isset($image_styles[$settings['imagezoom_thumb_style']]) ?
+    $image_styles[$settings['imagezoom_thumb_style']] : 'original',
+  ));
+
+  return implode('<br />', $summary);
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function imagezoom_gallery_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  // If there are no items, don't do anything.
+  if (empty($items)) {
+    return array();
+  }
+
+  $display_style = $display['settings']['imagezoom_display_style'];
+  $zoom_style = $display['settings']['imagezoom_zoom_style'];
+  $thumb_style = $display['settings']['imagezoom_thumb_style'];
+
+  $settings = array(
+    'zoomType' => $display['settings']['imagezoom_zoom_type'],
+    'gallery' => 'imagezoom-thumb-wrapper',
+  );
+
+  if ($display['settings']['imagezoom_disable']) {
+    $settings['responsive'] = TRUE;
+    $settings['respond'] = array(
+      array(
+        'range' => '0 - ' . $display['settings']['imagezoom_disable_width'],
+        'enabled' => FALSE,
+      ),
+    );
+  }
+
+  $additonal_settings = imagezoom_settings_to_array($display['settings']['imagezoom_additional']);
+  $settings += $additonal_settings;
+
+  $context = array(
+    'field' => $field,
+    'instance' => $instance,
+  );
+  drupal_alter('imagezoom_settings', $settings, $context);
+
+  $element = array(
+    '#theme' => 'imagezoom_gallery',
+    '#items' => $items,
+    '#display_style' => $display_style,
+    '#zoom_style' => $zoom_style,
+    '#thumb_style' => $thumb_style,
+    '#settings' => $settings,
+  );
+
+  return $element;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function imagezoom_gallery_theme($existing, $type, $theme, $path) {
+  return array(
+    'imagezoom_gallery' => array(
+      'variables' => array(
+        'items' => NULL,
+        'display_style' => NULL,
+        'zoom_style' => NULL,
+        'thumb_style' => NULL,
+        'settings' => NULL,
+        'image' => NULL,
+        'thumbs' => NULL,
+      ),
+      'template' => 'imagezoom_gallery',
+      'path' => $path . '/theme',
+    ),
+    'imagezoom_thumb' => array(
+      'variables' => array(
+        'item' => NULL,
+        'display_style' => NULL,
+        'zoom_style' => NULL,
+        'settings' => NULL,
+      ),
+      'template' => 'imagezoom_thumb',
+      'path' => $path . '/theme',
+    ),
+  );
+}
+
+/**
+ * Preprocess function for imagezoom_gallery.
+ */
+function template_preprocess_imagezoom_gallery(&$variables) {
+  $items = $variables['items'];
+
+  $variables['image'] = theme('imagezoom_image', array(
+    'item' => $items[0],
+    'display_style' => $variables['display_style'],
+    'zoom_style' => $variables['zoom_style'],
+    'settings' => $variables['settings'],
+  ));
+
+  $variables['thumbs'] = array();
+  foreach ($items as $key => $item) {
+    $variables['thumbs'][] = theme('imagezoom_thumb', array(
+      'item' => $item,
+      'display_style' => $variables['display_style'],
+      'thumb_style' => $variables['thumb_style'],
+      'zoom_style' => $variables['zoom_style'],
+      'settings' => $variables['settings'],
+    ));
+  }
+}
+
+/**
+ * Preprocess function for imagezoom_thumb.
+ */
+function template_preprocess_imagezoom_thumb(&$variables) {
+  $item = $variables['item'];
+
+  if ($variables['display_style']) {
+    $variables['image'] = image_style_url($variables['display_style'], $item['uri']);
+  }
+  else {
+    $variables['image'] = file_create_url($item['uri']);
+  }
+
+  if ($variables['zoom_style']) {
+    $variables['zoom'] = image_style_url($variables['zoom_style'], $item['uri']);
+  }
+  else {
+    $variables['zoom'] = file_create_url($item['uri']);
+  }
+
+  if ($variables['thumb_style']) {
+    $variables['thumb'] = image_style_url($variables['thumb_style'], $item['uri']);
+    $info = image_get_info($variables['thumb']);
+  }
+  else {
+    $variables['thumb'] = file_create_url($item['uri']);
+    $info = image_get_info($item['uri']);
+  }
+
+  $variables['width'] = $info['width'];
+  $variables['height'] = $info['height'];
+}

@@ -1,0 +1,33 @@
+{
+    "name": "integratedexperts/drupal_helpers",
+    "description": "Helper classes for Drupal",
+    "keywords": [
+        "drupal",
+        "helper",
+        "utility"
+    ],
+    "homepage": "https://github.com/integratedexperts/drupal_helpers",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Alex Skrypnyk",
+            "email": "alex@integratedexperts.com"
+        },
+        {
+            "name": "Nick Santamaria",
+            "email": "nick@nicksantamaria.net"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/integratedexperts/drupal_helpers/issues",
+        "source": "https://github.com/integratedexperts/drupal_helpers"
+    },
+    "require": {
+        "drupal/xautoload": "^4||^5"
+    },
+    "autoload": {
+        "psr-0": {
+            "Drupal\\drupal_helpers\\": "lib/"
+        }
+    }
+}

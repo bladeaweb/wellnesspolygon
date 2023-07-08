@@ -1,0 +1,17 @@
+language: php
+php:
+  - "7.3"
+
+matrix:
+  - COMPOSER_CHANNEL=1
+  - COMPOSER_CHANNEL=2
+    
+before_install:
+  - composer self-update "--${COMPOSER_CHANNEL}"
+
+install:
+  - composer install --no-interaction --prefer-source
+
+script:
+  - ./vendor/bin/phpcs .
+  - ./vendor/bin/phpunit

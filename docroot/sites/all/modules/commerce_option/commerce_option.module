@@ -1,0 +1,774 @@
+<?php
+
+/**
+ * Implements hook_views_api().
+ */
+function commerce_option_views_api($module = NULL, $api = NULL) {
+  return array("api" => "3.0");
+}
+
+/**
+ * Implements hook_menu().
+ */
+function commerce_option_menu() {
+  $items['admin/commerce/products/option-sets/%commerce_option_set/delete'] = array(
+    'title' => 'Delete commerce option set',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('commerce_option_set_delete_confirm', 4),
+    'access arguments' => array('administer option sets'),
+    'type' => MENU_CALLBACK,
+    'file' => 'commerce_option.admin.inc',
+  );
+
+  $items['admin/commerce/products/options/%commerce_option/delete'] = array(
+    'title' => 'Delete commerce option',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('commerce_option_delete_confirm', 4),
+    'access arguments' => array('administer options'),
+    'type' => MENU_CALLBACK,
+    'file' => 'commerce_option.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_menu_alter().
+ */
+function commerce_option_menu_alter(&$items) {
+  $items['admin/commerce/products/option-sets']['type'] = MENU_LOCAL_TASK;
+  $items['admin/commerce/products/option-sets']['title'] = t('Option sets');
+
+  $items['admin/commerce/orders/options']['type'] = MENU_LOCAL_TASK;
+  $items['admin/commerce/orders/options']['title'] = t('Options');
+}
+
+/**
+ * Implements hook_entity_info().
+ *
+ * This function provides information about the option entities.
+ */
+function commerce_option_entity_info() {
+  $return = array();
+
+  $return['commerce_option'] = array(
+    'label' => t('Commerce Option'),
+    'entity class' => 'Entity',
+    'controller class' => 'EntityAPIController',
+    'views controller class' => 'EntityDefaultViewsController',
+    'base table' => 'commerce_option',
+    'fieldable' => TRUE,
+    'load hook' => 'commerce_option_load',
+    'entity keys' => array(
+      'id' => 'option_id',
+      'bundle' => 'set_id',
+      'label' => 'set_id',
+    ),
+    'access callback' => 'commerce_option_set_access',
+    'creation callback' => 'commerce_option_new',
+    'module' => 'commerce_option',
+    'bundle keys' => array(
+      'bundle' => 'set_id',
+    ),
+    'bundles' => array(),
+    'view modes' => array(
+      'full' => array(
+        'label' => t('Full content'),
+        'custom settings' => FALSE,
+      ),
+    ),
+    'admin ui' => array(
+      'path' => 'admin/commerce/orders/options',
+      'file' => 'commerce_option.admin.inc',
+      'controller class' => 'CommerceOptionUIController',
+    ),
+  );
+
+  $return['commerce_option_set'] = array(
+    'label' => t('Commerce Option Set'),
+    'entity class' => 'Entity',
+    'controller class' => 'EntityAPIControllerExportable',
+    'views controller class' => 'EntityDefaultViewsController',
+    'base table' => 'commerce_option_set',
+    'exportable' => TRUE,
+    'fieldable' => FALSE,
+    'load hook' => 'commerce_option_set_load',
+    'entity keys' => array(
+      'id' => 'option_set_id',
+      'label' => 'name',
+      'name' => 'set_id',
+    ),
+    'deletion callback' => 'commerce_option_set_delete',
+    'bundle of' => 'commerce_option',
+    'access callback' => 'commerce_option_set_access',
+    'module' => 'commerce_option',
+    'bundles' => array(),
+    'admin ui' => array(
+      'path' => 'admin/commerce/products/option-sets',
+      'file' => 'commerce_option.admin.inc',
+    ),
+  );
+
+  return $return;
+}
+
+/**
+ * Implements hook_entity_property_info().
+ */
+function commerce_option_entity_property_info() {
+  $info = array();
+
+  $info['commerce_option']['properties'] = array(
+    'option_id' => array(
+      'type' => 'integer',
+      'label' => t('Option id'),
+      'schema field' => 'option_id',
+    ),
+    'set_id' => array(
+      'type' => 'text',
+      'label' => t('Set id'),
+      'schema field' => 'set_id',
+      'setter callback' => 'entity_property_verbatim_set',
+      'required' => TRUE,
+    ),
+    'product_id' => array(
+      'type' => 'integer',
+      'label' => t('Product id'),
+      'schema field' => 'product_id',
+      'required' => TRUE,
+    ),
+    'line_item_id' => array(
+      'type' => 'integer',
+      'label' => t('Line item id'),
+      'schema_field' => 'line_item_id',
+      'setter callback' => 'entity_property_verbatim_set',
+      'required' => TRUE,
+    ),
+    'created' => array(
+      'type' => 'date',
+      'label' => t('Created date'),
+      'schema_field' => 'created',
+      'setter callback' => 'entity_property_verbatim_set',
+    ),
+    'changed' => array(
+      'type' => 'date',
+      'label' => t('Changed date'),
+      'schema_field' => 'changed',
+      'setter callback' => 'entity_property_verbatim_set',
+    ),
+  );
+
+  $info['commerce_option_set']['properties'] = array(
+    'option_set_id' => array(
+      'type' => 'integer',
+      'label' => t('Option set id'),
+      'schema field' => 'option_set_id',
+      'required' => TRUE,
+    ),
+    'set_id' => array(
+      'type' => 'text',
+      'label' => t('Machine name'),
+      'schema field' => 'set_id',
+      'required' => TRUE,
+    ),
+    'name' => array(
+      'type' => 'text',
+      'label' => t('Human-readable name'),
+      'schema field' => 'name',
+      'required' => TRUE,
+    ),
+  );
+
+  return $info;
+}
+
+/**
+ * Implements hook_entity_property_info_alter().
+ *
+ * Define extra properties for commerce line items where we'll load in their
+ * commerce options.
+ * We do this so we can use this property for comparison in
+ * commerce_cart_product_add().
+ */
+function commerce_option_entity_property_info_alter(&$info) {
+  foreach (commerce_option_set_load_multiple(FALSE) as $option_set) {
+    $info['commerce_line_item']['properties'][$option_set->set_id] = array(
+      'label' => $option_set->name,
+      'type' => 'text',
+      'description' => t('A serialized array of all the fields defined in this option.')
+    );
+  }
+}
+
+/**
+ * Implements hook_entity_info_alter().
+ *
+ * Use this hook to specify commerce set bundles to avoid a recursion, as loading
+ * the commerce coupon types needs the entity info too.
+ */
+function commerce_option_entity_info_alter(&$entity_info) {
+  foreach (commerce_option_set_load_multiple(FALSE) as $info) {
+    $entity_info['commerce_option']['bundles'][$info->set_id] = array(
+      'label' => $info->name,
+      'admin' => array(
+        'path' => 'admin/commerce/products/option-sets/manage/%commerce_option_set',
+        'real path' => 'admin/commerce/products/option-sets/manage/' . $info->set_id,
+        'bundle argument' => 5,
+        'access arguments' => array('administer option sets'),
+      ),
+    );
+  }
+}
+
+/**
+ * Check if the given operation is allowed.
+ */
+function commerce_option_set_access($op, $type = NULL, $account = NULL) {
+  return user_access('administer option sets', $account);
+}
+
+/**
+ * Implements hook_permission().
+ */
+function commerce_option_permission() {
+  $permissions = array(
+    'administer option sets' => array(
+      'title' => t('Administer Option Sets'),
+      'description' => t('Allow users to manage option sets.'),
+    ),
+    'administer options' => array(
+      'title' => t('Administer options'),
+      'description' => t('Allow users to edit options'),
+    ),
+  );
+
+  return $permissions;
+}
+
+/**
+ * Load multiple commerce options.
+ *
+ * @param $option_ids
+ *   An array of entity IDs or FALSE to return all entities.
+ * @param $conditions
+ *   An array of conditions to match against the {entity} table.
+ * @param $reset
+ *   A boolean indicating that the internal cache should be reset.
+ * @return
+ *   An array of entity objects, indexed by option_id.
+ */
+function commerce_option_load_multiple($option_ids, $conditions = array(), $reset = FALSE) {
+  return entity_load('commerce_option', $option_ids, $conditions, $reset);
+}
+
+/**
+ * Load a commerce option.
+ *
+ * @param $option_id
+ *   Integer specifying the option id.
+ * @param $reset
+ *   A boolean indicating that the internal cache should be reset.
+ * @return
+ *   A fully-loaded $option object or FALSE if it cannot be loaded.
+ *
+ * @see commerce_option_load_multiple()
+ */
+function commerce_option_load($option_id, $reset = FALSE) {
+  $ids = (isset($option_id) ? array($option_id) : array());
+  $option = commerce_option_load_multiple($ids, array(), $reset);
+
+  return $option ? reset($option) : FALSE;
+}
+
+/**
+ * Load all options associated with a line item.
+ *
+ * @param $line_item_id
+ *  Line item id.
+ * @return
+ *   Array of options
+ */
+function commerce_option_load_by_line_item($line_item_id) {
+  $option_ids = db_select('commerce_option', 'o')
+    ->fields('o', array('option_id'))
+    ->condition('line_item_id', $line_item_id, '=')
+    ->execute()
+    ->fetchCol();
+
+  return commerce_option_load_multiple($option_ids);
+}
+
+/**
+ * Load all options for a commerce product.
+ *
+ * @param $product_id
+ *   Commerce product id.
+ * @return
+ *   Array of options
+ */
+function commerce_option_load_by_product($product_id) {
+  $option_ids = db_select('commerce_option', 'o')
+    ->fields('o', array('option_id'))
+    ->condition('product_id', $product_id, '=')
+    ->execute()
+    ->fetchCol();
+
+  return commerce_option_load_multiple($option_ids);
+}
+
+/**
+ * Save a commerce option.
+ */
+function commerce_option_save($option) {
+  $option->changed = REQUEST_TIME;
+
+  return entity_save('commerce_option', $option);
+}
+
+/**
+ * Initialize a new commerce option.
+ */
+function commerce_option_new($values) {
+  if (!isset($values['set_id'])) {
+    // Try and get the existing sets so we can provide a default value for the
+    // bundle key. Otherwise just set to true to avoid errors in Entity API.
+    $values['set_id'] = TRUE;
+    $option_sets = commerce_option_set_load_multiple(FALSE);
+    if (!empty($option_sets)) {
+      $values['set_id'] = current($option_sets)->set_id;
+    }
+  }
+
+  $values['created'] = REQUEST_TIME;
+
+  return entity_get_controller('commerce_option')->create($values);
+}
+
+/**
+ * Load multiple commerce option sets.
+ *
+ * @param $option_set_ids
+ *   An array of entity IDs or FALSE to return all entities.
+ * @param $conditions
+ *   An array of conditions to match against the {entity} table.
+ * @param $reset
+ *   A boolean indicating that the internal cache should be reset.
+ * @return
+ *   An array of test entity objects, indexed by option_id.
+ */
+function commerce_option_set_load_multiple($option_set_ids, $conditions = array(), $reset = FALSE) {
+  return entity_load('commerce_option_set', $option_set_ids, $conditions, $reset);
+}
+
+/**
+ * Load a commerce option set.
+ *
+ * @param $set_id
+ *   Integer specifying the option id.
+ * @param $reset
+ *   A boolean indicating that the internal cache should be reset.
+ * @return
+ *   A fully-loaded $option object or FALSE if it cannot be loaded.
+ *
+ * @see commerce_option_set_load_multiple()
+ */
+function commerce_option_set_load($option_set_id, $reset = FALSE) {
+  $ids = (isset($option_set_id) ? array($option_set_id) : array());
+  $option_set = commerce_option_set_load_multiple($ids, array(), $reset);
+
+  return $option_set ? reset($option_set) : FALSE;
+}
+
+/**
+ * Load a commerce option set by machine name
+ */
+function commerce_option_set_load_by_name($name) {
+  $query = db_select('commerce_option_set', 'cos')
+    ->fields('cos', array('option_set_id'))
+    ->condition('set_id', $name, '=')
+    ->execute()
+    ->fetchField();
+
+  if (!empty($query)) {
+    $option_set = commerce_option_set_load($query);
+    return $option_set;
+  }
+
+  return FALSE;
+}
+
+/**
+ * Save a commerce option set.
+ */
+function commerce_option_set_save($option_set) {
+  return entity_save('commerce_option_set', $option_set);
+}
+
+/**
+ * Delete a commerce option set.
+ * Make sure we also delete all commerce options using this bundle.
+ */
+function commerce_option_set_delete($id) {
+  $option_set = commerce_option_set_load($id);
+
+  $bundle = $option_set->set_id;
+
+  $options = db_select('commerce_option', 'co')
+    ->fields('co', array('option_id'))
+    ->condition('set_id', $bundle, '=')
+    ->execute()
+    ->fetchCol();
+
+  if (!empty($options)) {
+    entity_delete_multiple('commerce_option', $options);
+  }
+
+  // And finally delete the entity itself.
+  entity_get_controller('commerce_option_set')->delete(array($id));
+}
+
+/**
+ * Implements hook_entity_delete().
+ *
+ * Delete all options, when the associated line item is deleted.
+ */
+function commerce_option_entity_delete($entity, $type) {
+  if ($type != 'commerce_line_item') {
+    return;
+  }
+
+  $options = commerce_option_load_by_line_item($entity->line_item_id);
+  if (empty($options)) {
+    return;
+  }
+
+  // Delete data in field tables
+  foreach ($options as $option) {
+    field_attach_delete('commerce_option', $option);
+  }
+
+  // Delete entries from commerce_option table.
+  entity_delete_multiple('commerce_option', array_keys($options));
+}
+
+/**
+ * Implements hook_entity_load().
+ *
+ * TODO: Put this code in getter callback?
+ */
+function commerce_option_entity_load($entities, $type) {
+  if ($type != 'commerce_line_item') {
+    return;
+  }
+
+  // Attach the commerce options for this line item to the entity.
+  foreach ($entities as $id => $entity) {
+    // Only for products.
+    if ($entity->type != 'product') {
+      continue;
+    }
+    $product_id = $entity->commerce_product[LANGUAGE_NONE][0]['product_id'];
+
+    $query = db_select('commerce_option', 'co')
+      ->fields('co', array('option_id'))
+      ->condition('line_item_id', $id, '=')
+      ->condition('product_id', $product_id, '=');
+
+    $result = $query->execute()->fetchCol();
+
+    if (empty($result)) {
+      continue;
+    }
+
+    foreach ($result as $option_id) {
+      $commerce_option = commerce_option_load($option_id);
+      $options_extracted = commerce_option_get_valuables($commerce_option);
+
+      $entity->{$commerce_option->set_id} = serialize($options_extracted);
+    }
+  }
+}
+
+/**
+ * Extract from our Commerce Options the stuff we need to compare to other
+ * options to determine if an option is unique.
+ * These should be all the fields defined in the option set, but it could also
+ * include custom things, defined by other modules.
+ */
+function commerce_option_get_valuables($option) {
+  $option_extracted = array();
+
+  $fields = field_info_instances('commerce_option', $option->set_id);
+  $fields = array_keys($fields);
+
+  foreach ($fields as $field) {
+    $option_extracted[$field] = $option->$field;
+  }
+
+  // Let other modules define their own properties.
+  drupal_alter('commerce_option_valuables', $option_extracted, $option);
+
+  return $option_extracted;
+}
+
+/**
+ * Implements hook_form_alter().
+ *
+ * Here we modify the add to cart form.
+ */
+function commerce_option_form_alter(&$form, &$form_state, $form_id) {
+  if ((strpos($form_id, 'commerce_cart_add_to_cart_form_') === FALSE)) {
+    return;
+  }
+
+  // Get the current product. Is added in the cart module.
+  if (isset($form_state['default_product'])) {
+    $product_id = $form_state['default_product']->product_id;
+  }
+  elseif (isset($form_state['default_product_id'])) {
+    $product_id = $form_state['default_product_id'];
+  }
+  elseif (isset($form_state['products'])) {
+    $current_product = reset($form_state['products']);
+    $product_id = $current_product->product_id;
+  }
+  else {
+    return;
+  }
+
+  $current_product = commerce_product_load($product_id);
+
+  $someFieldIsAdded = FALSE;
+
+  // Iterates the fields of this product. We search for entity reference fields
+  // to a commerce option set.
+  foreach ($current_product as $field_name => $field) {
+    $field_info = field_info_field($field_name);
+
+    if ($field_info['type'] != 'entityreference' || !isset($field_info['settings']['target_type']) || $field_info['settings']['target_type'] != 'commerce_option_set') {
+      continue;
+    }
+
+    // Do not display our options if this field has been marked as an attribute field.
+    $field_instance_info = field_info_instance('commerce_product', $field_name, $current_product->type);
+    if ($field_instance_info['commerce_cart_settings']['attribute_field']) {
+      return;
+    }
+
+    $lang_code = field_language('commerce_product', $current_product, $field_name);
+    if (!isset($field[$lang_code])) {
+      continue;
+    }
+
+    // Create a new blank option set.
+    foreach($field[$lang_code] as $key => $data) {
+      $option_set = commerce_option_set_load($data['target_id']);
+      $values = array(
+        'set_id' => $option_set->set_id,
+      );
+
+      $option = commerce_option_new($values);
+
+      $form_state['commerce_option'][$field_name][$key]['option'] = $option;
+
+      $form[$field_name] = array(
+        '#tree' => TRUE,
+        $key => array(
+          '#parents' => array($field_name, $key),
+        )
+      );
+
+      field_attach_form('commerce_option', $option, $form[$field_name][$key], $form_state);
+
+      $someFieldIsAdded = TRUE;
+    }
+  }
+
+  // If we've modified the form to contain commerce options, add a submit
+  // handler to save our values.
+  if ($someFieldIsAdded) {
+    $form['#submit'][] = 'commerce_option_add_to_cart_submit';
+  }
+}
+
+/**
+ * Cart submit callback function. This is required to create / update
+ * the option related to the line item.
+ *
+ * @param $form Form array
+ * @param $form_state The form state array.
+ * @return void
+ */
+function commerce_option_add_to_cart_submit($form, $form_state){
+  // Get current product, taking into account different Commerce versions behavior.
+  if (isset($form_state['default_product'])) {
+    $product_id = $form_state['default_product']->product_id;
+  }
+  elseif (isset($form_state['default_product_id'])) {
+    $product_id = $form_state['default_product_id'];
+  }
+  elseif (isset($form_state['products'])) {
+    $current_product = reset($form_state['products']);
+    $product_id = $current_product->product_id;
+  }
+  else {
+    return;
+  }
+
+  $current_product = commerce_product_load($product_id);
+
+  // Iterates the fields of this product. We search for entity reference fields
+  // to a commerce option set.
+  foreach ($current_product as $field_name => $field) {
+    $field_info = field_info_field($field_name);
+
+    if ($field_info['type'] != 'entityreference' || !isset($field_info['settings']['target_type']) || $field_info['settings']['target_type'] != 'commerce_option_set') {
+      continue;
+    }
+
+    $lang_code = field_language('commerce_product', $current_product, $field_name);
+    if (!isset($field[$lang_code])) {
+      continue;
+    }
+
+    foreach ($field[$lang_code] as $delta => $set_id) {
+      $option = $form_state['commerce_option'][$field_name][$delta]['option'];
+
+      // Notify field widgets and populate option with values.
+      field_attach_submit('commerce_option', $option, $form[$field_name][$delta], $form_state);
+
+      // Check if our option is empty. If yes we shouldn't save anything.
+      // Cannot use field_get_items() because it calls field_language().
+      $option_extracted = commerce_option_get_valuables($option);
+      $ow = entity_metadata_wrapper('commerce_option', $option);
+      $empty = TRUE;
+
+      foreach (array_keys($option_extracted) as $option_field) {
+        $value = $ow->$option_field->value();
+        if (!empty($value)) {
+          $empty = FALSE;
+          break;
+        }
+      }
+
+      if ($empty) {
+        continue;
+      }
+
+      $line_item_id = $form_state['line_item']->line_item_id;
+      $product_id = $current_product->product_id;
+      $match = FALSE;
+
+      // Check if the newly created options exist on this line item already.
+      // If yes we needn't save anything, commerce will just increase the
+      // quantity.
+      $query = db_select('commerce_option', 'co')
+        ->fields('co', array('option_id'))
+        ->condition('line_item_id', $line_item_id, '=')
+        ->condition('product_id', $product_id, '=');
+
+      $result = $query->execute()->fetchCol();
+
+      if (!empty($result)) {
+        $commerce_option_entities = commerce_option_load_multiple($result);
+        $option_extracted = serialize($option_extracted);
+
+        foreach ($commerce_option_entities as $commerce_option) {
+          $commerce_option_extracted = commerce_option_get_valuables($commerce_option);
+          $commerce_option_extracted = serialize($commerce_option_extracted);
+          if ($commerce_option_extracted == $option_extracted) {
+            $match = TRUE;
+            break;
+          }
+        }
+      }
+
+      if ($match) {
+        continue;
+      }
+
+      $option->line_item_id = $line_item_id;
+      $option->product_id = $product_id;
+
+      // Save the option.
+      commerce_option_save($option);
+    }
+  }
+}
+
+/**
+ * Implements hook_field_attach_submit().
+ *
+ * This hook gets called in field_attach_submit(), which is called by
+ * commerce_cart_add_to_cart_form_submit(). It is here we need to add the
+ * option set property on the commerce_line_item entity.
+ * We do it here because here we have access to $form_state, which holds the
+ * values for the option set.
+ */
+function commerce_option_field_attach_submit($entity_type, $entity, $form, &$form_state) {
+  if ($entity_type != 'commerce_line_item') {
+    return;
+  }
+
+  // Get current product, taking into account different Commerce versions behavior.
+  if (isset($form_state['default_product'])) {
+    $product_id = $form_state['default_product']->product_id;
+  }
+  elseif (isset($form_state['default_product_id'])) {
+    $product_id = $form_state['default_product_id'];
+  }
+  elseif (isset($form_state['products'])) {
+    $current_product = reset($form_state['products']);
+    $product_id = $current_product->product_id;
+  }
+  else {
+    return;
+  }
+
+  $current_product = commerce_product_load($product_id);
+
+  // Iterates the fields of this product. We search for entity reference fields
+  // to a commerce option set.
+  foreach ($current_product as $field_name => $field) {
+    $field_info = field_info_field($field_name);
+
+    if ($field_info['type'] != 'entityreference' || !isset($field_info['settings']['target_type']) || $field_info['settings']['target_type'] != 'commerce_option_set') {
+      continue;
+    }
+
+    // Do not do anything if this field has been marked as an attribute field.
+    $field_instance_info = field_info_instance('commerce_product', $field_name, $current_product->type);
+    if ($field_instance_info['commerce_cart_settings']['attribute_field']) {
+      return;
+    }
+
+    $lang_code = field_language('commerce_product', $current_product, $field_name);
+    if (!isset($field[$lang_code])) {
+      continue;
+    }
+
+    foreach ($field[$lang_code] as $delta => $set_id) {
+      $option = $form_state['commerce_option'][$field_name][$delta]['option'];
+
+      // Notify field widgets. Look in complete form subarray because our
+      // original fields in the $form array tend to disappear.
+      field_attach_submit('commerce_option', $option, $form_state['complete form'][$field_name][$delta], $form_state);
+
+      $options_extracted = commerce_option_get_valuables($option);
+
+      $entity->{$option->set_id} = serialize($options_extracted);
+    }
+  }
+}
+
+/**
+ * Implements hook_commerce_cart_product_comparison_properties_alter().
+ *
+ * Define extra properties to compare so we can tell Commerce to create a new
+ * line item every time a different option set is chosen for a given line item.
+ */
+function commerce_option_commerce_cart_product_comparison_properties_alter(&$comparison_properties) {
+  foreach (commerce_option_set_load_multiple(FALSE) as $option_set) {
+    $comparison_properties[] = $option_set->set_id;
+  }
+}

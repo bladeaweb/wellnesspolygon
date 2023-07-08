@@ -4,16 +4,17 @@
   "private": true,
   "description": "NPM dependencies for WellnesPolygon project",
   "devDependencies": {
-    "eslint": "^3.19.0",
-    "grunt": "^1.0.0",
-    "grunt-cli": "^1.2.0",
-    "grunt-contrib-clean": "^1.1.0",
-    "grunt-contrib-concat": "^1.0.1",
-    "grunt-contrib-uglify": "^2.0.0",
-    "grunt-contrib-watch": "^1.0.0",
-    "grunt-exec": "^1.0.1",
-    "grunt-sass": "^1.2.1",
+    "eslint": "^8.44.0",
+    "grunt": "^1.6.1",
+    "grunt-cli": "^1.4.3",
+    "grunt-contrib-clean": "^2.0.0",
+    "grunt-contrib-concat": "^2.1.0",
+    "grunt-contrib-uglify": "^5.2.2",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-exec": "^3.0.0",
+    "grunt-sass": "^3.1.0",
     "grunt-sass-globbing": "^1.5.1",
-    "sass-lint": "^1.10.2"
+    "sass-lint": "^1.13.1",
+    "node-sass": "^9.0.0"
   }
 }

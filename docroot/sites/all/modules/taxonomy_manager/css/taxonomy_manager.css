@@ -1,0 +1,586 @@
+/**
+ * Taxonomy Manager Tree styles.
+ */
+
+#taxonomy-manager-double-tree-form,
+#taxonomy-manager-form {
+  line-height: 120%;
+}
+
+#taxonomy-manager-double-tree-form #edit-jump,
+#taxonomy-manager-form #edit-jump {
+  float: right;
+  margin-bottom: 2px;
+}
+
+#edit-toolbar,
+#edit-add {
+  clear: both;
+}
+
+#taxonomy-manager-double-tree-form fieldset,
+#taxonomy-manager-form fieldset {
+  margin: 0.5em 0;
+}
+
+#taxonomy-manager-double-tree-form .left,
+#taxonomy-manager-form .left {
+  margin-left: 0;
+}
+
+#taxonomy2-manager-tree-outer-div,
+#taxonomy-manager-tree-outer-div {
+  overflow: auto;
+  width: 46%;
+}
+
+#taxonomy2-manager-tree-outer-div fieldset,
+#taxonomy-manager-tree-outer-div fieldset {
+  margin: 0;
+  padding: 0 5px;
+}
+
+.taxonomy-manager-tree-size {
+  padding: 0px;
+  margin: 0px;
+  /*height: 7px;*/
+  text-align: right;
+  display: inline;
+}
+
+.taxonomy-manager-tree-size img {
+  cursor: pointer;
+}
+
+#taxonomy2-manager-tree-wrapper,
+#taxonomy-manager-tree-wrapper {
+  margin-top: 0em;
+}
+
+/* address .treeview additional with #taxonomy-manager to make it compatible with the admin module */
+#taxonomy-manager .treeview,
+.treeview,
+.treeview ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+#taxonomy-manager .treeview .form-item,
+.treeview .form-item {
+  margin: 0;
+  padding: 0;
+  display: inline;
+}
+
+#taxonomy-manager .treeview li,
+.treeview li {
+  margin: 0;
+  padding: 0 0 0 15px;
+}
+
+#taxonomy-manager .hitArea,
+.hitArea {
+  float: left;
+  height: 15px;
+  width: 15px;
+  margin-left: -15px;
+  cursor: pointer;
+  _background: #fff;
+  _filter: alpha(opacity=0);
+  _display: inline;
+}
+
+#taxonomy-manager .treeview li,
+.treeview li {
+  background: url(../images/tv-item.gif) 0 0 no-repeat;
+}
+#taxonomy-manager .treeview .collapsable,
+.treeview .collapsable {
+  background-image: url(../images/tv-collapsable.gif);
+}
+#taxonomy-manager .treeview .expandable,
+.treeview .expandable {
+  background-image: url(../images/tv-expandable.gif);
+}
+#taxonomy-manager .treeview .last,
+.treeview .last {
+  background-image: url(../images/tv-item-last.gif);
+}
+#taxonomy-manager .treeview .lastCollapsable,
+.treeview .lastCollapsable {
+  background-image: url(../images/tv-collapsable-last.gif);
+}
+#taxonomy-manager .treeview .lastExpandable,
+.treeview .lastExpandable {
+  background-image: url(../images/tv-expandable-last.gif);
+}
+
+.term-line {
+  display: inline;
+}
+
+.term-item {
+  display: inline;
+  padding-right: 5px;
+}
+
+.term-has-more-siblings {
+  height: 38px;
+  cursor: pointer;
+  background-image: url(../images/2downarrow.png);
+  background-repeat: no-repeat;
+}
+
+.term-next-count {
+  display: inline;
+  color: #4ca108;
+  line-height: 38px;
+  padding-left: 38px;
+}
+
+
+.term-operations {
+  display: inline;
+  padding-left: 5px;
+}
+
+.term-operations span.select-all-children {
+  text-decoration: none;
+  width: 16px;
+  height: 16px;
+  background-repeat: no-repeat;
+  background-image: url(../images/select-all-children.png);
+}
+.term-operations span.deselect-all-children {
+  text-decoration: none;
+  width: 16px;
+  height: 16px;
+  background-repeat: no-repeat;
+  background-image: url(../images/deselect-all-children.png);
+}
+
+.term-operations img.term-up,
+.term-operations img.term-down,
+.term-operations span.select-all-children,
+.term-operations span.deselect-all-children,
+.term-operations a img {
+  cursor: pointer;
+  vertical-align: bottom;
+}
+
+.term-operations a:link,
+.term-operations a:visited,
+.term-operations a:hover,
+.term-operations a:active {
+  text-decoration: none;
+}
+
+div.highlightActiveTerm div.form-item {
+  background-color: #ddd;
+}
+.highlightActiveTerm a {
+  font-weight: bold;
+}
+
+span.taxonomy-manager-select-helpers {
+  padding-left: 5px;
+}
+span.taxonomy-manager-select-helpers span {
+  padding-right: 2px;
+  cursor: pointer;
+}
+span.taxonomy-manager-select-helpers span.select-all-children {
+  text-decoration: none;
+  width: 16px;
+  height: 16px;
+  background-repeat: no-repeat;
+  background-image: url(../images/select-all-children-bw.png);
+}
+span.taxonomy-manager-select-helpers span.select-all-children:hover {
+  background-image: url(../images/select-all-children.png);
+}
+span.taxonomy-manager-select-helpers span.deselect-all-children {
+  text-decoration: none;
+  width: 16px;
+  height: 16px;
+  background-repeat: no-repeat;
+  background-image: url(../images/deselect-all-children-bw.png);
+}
+span.taxonomy-manager-select-helpers span.deselect-all-children:hover {
+  background-image: url(../images/deselect-all-children.png);
+}
+
+div.form-item-taxonomy-manager-top-language,
+div.form-item-taxonomy2-manager-top-language {
+  padding-right: 0.5em;
+  text-align: right;
+  display: inline;
+}
+div.form-item-taxonomy-manager-top-language label,
+div.form-item-taxonomy2-manager-top-language label {
+  display: inline;
+}
+
+.taxonomy-manager-tree-top {
+  text-align: right;
+  padding-top: 0.5em;
+}
+
+#taxonomy-manager-double-tree-operations {
+  float: left;
+  margin-left: 8px;
+  margin-right: 8px;
+  margin-top: 120px;
+  display: inline;
+}
+
+.taxonomy-manager-double-tree-operations-buttons input {
+  padding: 0;
+  margin: 0;
+}
+
+#double-tree-msg {
+  margin-bottom: 8px;
+}
+
+.taxonomy-manager-term-load-helper {
+  display: none;
+}
+
+/**
+ * Taxonomy Manger Toolbar
+ */
+#taxonomy-manager-toolbar-throbber {
+  float: right;
+  margin: 0px;
+  padding: 0px;
+  height: 25px;
+}
+
+#taxonomy-manager-toolbar-buttons {
+  float: left;
+}
+
+#taxonomy-manager-double-tree-form input.taxonomy-manager-buttons,
+#taxonomy-manager-form input.taxonomy-manager-buttons {
+  cursor: pointer;
+  color: #5a5a5a;
+  border-radius: 15px;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 15px;
+  text-align: center;
+  font-weight: normal;
+  font-size: 1em;
+  font-family: "Lucida Grande", Verdana, sans-serif;
+  border: 1px solid #e4e4e4;
+  border-bottom: 1px solid #b4b4b4;
+  border-left-color: #d2d2d2;
+  border-right-color: #d2d2d2;
+  padding-left: 30px;
+  padding-bottom: 3px;
+  padding-right: 3px;
+  padding-top: 0px;
+  height: 30px;
+  margin-bottom: 0px;
+  background-repeat: no-repeat;
+  background-position: 6px;
+  background-color: #f0efef;
+  background-attachment: scroll;
+}
+
+#taxonomy-manager-double-tree-form input.add,
+#taxonomy-manager-form input.add {
+  background-image: url(../images/list-add.png);
+}
+
+input#edit-weight-up {
+  background-image: url(../images/go-up.png);
+}
+
+input#edit-weight-down {
+  background-image: url(../images/go-down.png);
+}
+
+#taxonomy-manager-double-tree-form input.delete,
+#taxonomy-manager-form input.delete {
+  background-image: url(../images/list-remove.png);
+}
+
+#taxonomy-manager-double-tree-form input.move,
+#taxonomy-manager-form input.move {
+  background-image: url(../images/move.png);
+}
+
+#taxonomy-manager-double-tree-form input.merge,
+#taxonomy-manager-form input.merge {
+  background-image: url(../images/merge.png);
+}
+
+#taxonomy-manager-double-tree-form input.cancel,
+#taxonomy-manager-form input.cancel {
+  background-image: url(../images/dialog-cancel.png);
+}
+
+#taxonomy-manager-double-tree-form input.search,
+#taxonomy-manager-form input.search {
+  background-image: url(../images/edit-find.png);
+}
+
+#taxonomy-manager-double-tree-form input.export,
+#taxonomy-manager-form input.export {
+  background-image: url(../images/csv.png);
+}
+
+#taxonomy-manager-double-tree-form input.save,
+#taxonomy-manager-form input.save {
+  background-image: url(../images/document-save.png);
+  margin-bottom: 5px;
+}
+
+#taxonomy-manager-double-tree-form input.double-tree,
+#taxonomy-manager-form input.double-tree {
+  background-position: 8px;
+  padding-left: 32px;
+  background-image: url(../images/double-tree.png);
+}
+
+#taxonomy-manager-double-tree-form input.double-tree-disable,
+#taxonomy-manager-form input.double-tree-disable {
+  background-image: url(../images/double-tree-disable.png);
+}
+
+
+/**
+ * fixing position of autocomplete in seven theme
+ */
+fieldset#edit-search,
+fieldset#edit-move,
+fieldset#edit-term-merge {
+  position: static;
+}
+
+
+/**
+ * Taxonomy Manager Search
+ */
+#edit-search .fieldset-wrapper {
+  overflow: visible; /*fixes hidden autocomplete result in FF*/
+}
+
+#edit-search-field .form-item {
+  padding: 0;
+  margin: 0;
+}
+
+/**
+ * Term Data Form.
+ */
+
+.term-data-overlay {
+  position: absolute;
+  left: 280px;
+  top: 100px;
+  width: 500px;
+  z-index: 100;
+  background: #fff;
+}
+
+.term-data-overlay fieldset {
+  border-width: 5px;
+}
+
+.term-data-overlay legend span {
+  cursor: move;
+  background-image: url(../images/move-small.png);
+  background-repeat: no-repeat;
+  background-position: 8px 3px;
+  padding-left: 24px;
+  line-height: 150%;
+}
+
+#term-data-close {
+  padding-top: 8px;
+  margin: 0;
+  text-align: right;
+  line-height: 100%;
+}
+
+#term-data-close span {
+  text-decoration: none;
+  width: 16px;
+  height: 16px;
+  background-repeat: no-repeat;
+  background-image: url(../images/dialog-cancel-small.png);
+  cursor: pointer;
+}
+
+#term-data-close span:hover {
+  background-image: url(../images/dialog-cancel-small-hover.png);
+}
+
+td.term-data-autocomplete-add,
+td.taxonomy-term-data-operations {
+  text-align: center;
+}
+
+#taxonomy-term-data #edit-term-data-name-wrapper {
+  margin-top: 0;
+}
+
+#taxonomy-term-data .resizable-textarea {
+  width: 100%;
+}
+
+#taxonomy-term-data fieldset {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+#taxonomy-manager .messages {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#taxonomy-term-data input.form-submit {
+  margin-bottom: 0px;
+}
+
+#taxonomy-term-data input.save {
+  margin: 10px 0;
+  padding: 0 50px;
+  padding-left: 40px;
+  padding-bottom: 3px;
+  padding-right: 15px;
+  padding-top: 0px;
+  height: 30px;
+}
+
+#taxonomy-term-data .filter-wrapper .fieldset-wrapper {
+  padding-bottom: 0px;
+}
+
+/* hide descriptions, they use too much space */
+#taxonomy-term-data .filter-guidelines {
+  display: none;
+}
+
+.term-data-form-file-field-info {
+  font-weight: bold;
+}
+
+.taxonomy-term-data-operations {
+  cursor: pointer;
+}
+
+.term-data-autocomplete {
+  display: inline;
+}
+.term-data-autocomplete-add {
+  /*display: inline;*/
+  cursor: pointer;
+}
+.term-data-autocomplete-add img {
+  vertical-align: bottom;
+}
+
+#taxonomy-term-data .form-item-term-data-name input {
+  width: 100%;
+  padding-right: 0px;
+}
+
+#term-data-description {
+  height: 130px;
+}
+
+#taxonomy-term-data .form-item {
+  margin-bottom: 0.3em;
+  margin-top: 0.3em;
+}
+
+#taxonomy-term-data table .form-item {
+  margin-bottom: 0.2em;
+}
+
+#taxonomy-term-data table {
+  margin-top: 0.5em;
+  margin-bottom: 0em;
+}
+
+#taxonomy-term-data td,
+th {
+  padding-top: 0.1em;
+  padding-bottom: 0.1em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
+#edit-term-data-save {
+  margin: 0.5em 0;
+}
+
+.clear {
+  clear: both;
+}
+
+span.taxonomy-manager-message-close {
+  float: right;
+}
+
+/**
+ overwrites some css settings from the admin module, which break the layout of the taxonomy manager
+*/
+#taxonomy-manager div.form-item:after,
+#taxonomy-manager ul.links:after,
+#taxonomy-manager div.admin-panel .body:after,
+#taxonomy-manager .clear-block:after {
+  display: inline;
+}
+
+span.taxonomy-manager-select-helpers span.remove-all-settings {
+  margin-left: 20px;
+  /*margin-right: 10px;*/
+  text-decoration: none;
+  width: 16px;
+  height: 16px;
+  background-repeat: no-repeat;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAABG0lEQVQ4jaXTvytFcRjH8ddFlEHyYzFTJuom+R8o8iNdG6OUiCwWInUHA6tBXQwSKZtNKRPZFJOSidEkGc45nL5O997yWb71Pp/v0+c5z/Pln8rFZx/msIj3wHOA+oB9oYjbtKkHx6gNzEX0B6wxvvOjUnwOYS0wt+IoI30JagJ4gTb0ptgbHpDPKPKnAGxgNWD7GMkqUJfBXvGCLjyigAm0V5sADjGMSVH0UTxhttoCdxgUjXc5ZtPowEylFuATTVgJ+DYuRXtwXS4BrGPH77I1Y0/UVjc+0uaSbI1hFy04R2fqWxFTlQrAOO5FUwl1mrSQE61nlk6wKZpALsWXcJWAvOhvh+8g0Q2eMRD7FtCArTLJM1XAGeYT8A0K7S74j//lHwAAAABJRU5ErkJggg==);
+}
+
+span.taxonomy-manager-select-helpers span.remove-all-settings:hover {
+  width: 20px;
+  height: 20px;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABmJLR0QA/wD/AP+gvaeTAAABmklEQVQ4ja3Uv2/NYRTH8Vf9iKakCSIS4S/owuqOokuFGkRaQkPqRzqQGJkZsLBUWNgslhtpIzWKqEpqIGFksYncEAlawzlfvr2+33td8Ume5Pme833ezznPec7Df1Zfab4LazFf8+8hbKywL+M5FmFVCTaNm9hdA5zEzgr7atxp903iNHbgBbZULBzC45rNziTjV4R9Gfp7XMS9kq/QK7zD3grgUjL+WASzeIuJCt9VnKuJUh0QLuE8BtrsrzGIrb0CW7iLk232faKiB3oFEpUbK31fxygaOP4vwE85tuMK1otK7hEFPNYrEBZwDf04m6DPGMbRHCu0pgtwMCMcS1ihLzgouqofH2UXdYvwRm66qcI3Je7mkeQ0y85TOao0jKfYXLJdwP3cbABzmUXXlOGR6NcmRvzu6XH8wHeRfhNf/wYIMyKtebzE4YQVamE/5grgckbRSQ9FkaawQVypsk5gsQAu4HbOlzpAW7icEY+I6hJt2sB4EdUHPMM2Kx/ddq3DE7wRb+cDcT8b4ky/dVjbVaPiTG8pFfcnP/9QL63cikUAAAAASUVORK5CYII=);
+}
+
+span.taxonomy-manager-select-helpers span.expand-all {
+  margin-left: 10px;
+  margin-right: 10px;
+  text-decoration: none;
+  width: 16px;
+  height: 16px;
+  background-repeat: no-repeat;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAAdklEQVQ4jdXPMQqDQBBG4Y+0AcGbJl1QyLHs03uS9DZptNkBWVTcDQTywxY7zHszwz/kihfm7H0tAZeTggkD3qWTI7c09bnapBh+pH+ccyr3DI40W815cQ/ezYi2FpaAEV0NHIIZH/Sl8FoQm7TH7ceCasnvswBn4Sgch1r6agAAAABJRU5ErkJggg==);
+}
+
+span.taxonomy-manager-select-helpers span.expand-all:hover {
+  width: 20px;
+  height: 20px;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABmJLR0QA/wD/AP+gvaeTAAAAvElEQVQ4jc3UrQoCQRSG4cefJngzgsFgUvBOjBYvwO51aLFbBJMGg+CVKIhgEFnD7sIqLu7qBF84ZebwzuGbYfh3KiV6qxii+WZvi803A7RwRPRSk+ypZdijj1NeQ1khHLDDNYSwjjkG4sxyJy1CDTNxZotEnmY6CSFLaWEUSpbtKbRYRJbLGN1QMuJgL4n0Z1kqjBLp6ldZVhjhjvU3sryHXUUbnVBCaGDp+aI+kv2+ekm9csYUtzLi/+UBmkcvG0F9UpcAAAAASUVORK5CYII=);
+}
+
+span.taxonomy-manager-select-helpers span.collapse-all {
+  /*margin-left: 10px;*/
+  margin-right: 20px;
+  text-decoration: none;
+  width: 16px;
+  height: 16px;
+  background-repeat: no-repeat;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAAwElEQVQ4jc3SPW4CQQwF4C/QpFqJK6SEE3AICgruAVvlp0lDQ0HHOSi4AtI22ybXiJQyzabIrDJxWECigCdZo2e9efZ4zC1hjfIMXZm0/zBHg6fEC4xSFCm3SJrHLvfW5BUVZilqPJ+63KIVNplBy1+iuBd4gckR8ykGeeIuCEYYZrxK5zjLveOtq4OLUaSqXTOohSfEDj6xO1Jgi4880Q+CBVZ+vvHe7wwesMESX9gfco9LcmiR4rL9wcWrfB18Ayc4KuO32cxDAAAAAElFTkSuQmCC);
+}
+
+span.taxonomy-manager-select-helpers span.collapse-all:hover {
+  width: 20px;
+  height: 20px;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABmJLR0QA/wD/AP+gvaeTAAAAyUlEQVQ4jdWUPQoCMRBGH+7qOewtlTX4U3oePZQW4p08giDYaIpYZIJrnLBZdwv9IASGbx4zZCbwb1oBZQt/KTmq1oAFjpnQUrxWcj9UAHvAASdgKHEDjOWYmvdQ8yYLiKFz4AJM5FyBRS5Mg97lDkAHPNrAgqoaLAYG6DIXNsW36UgDHb59EydrJd+ATRQ7yz1TvG8a5JbdRZ1aTunrR9FaLoAtMJLEWBY/9Dtew59UvAEV+mBrG9UICxOQWr1GaO+fA/T8ff2mnguhTkpwbl7fAAAAAElFTkSuQmCC);
+}

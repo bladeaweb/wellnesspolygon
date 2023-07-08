@@ -1,0 +1,144 @@
+<?php
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function simple_field_formatter_field_formatter_info() {
+  return array(
+    // the key must be unique, so it's best to prefix with your module's name.
+    'simple_field_formatter_absolute_url' => array(
+      // the label is is what is displayed in the select box in the UI.
+      'label' => t('Custom'),
+      // field types is the important bit!! List the field types your formatter is for.
+      'field types' => array('text'),
+      'settings'  => array( //Array of the settings we'll create
+        'custom_prefix' => '', //give a default value for when the form is first loaded
+        'custom_suffix' => '', //ditto
+				'custom_reverse' => '',
+				'custom_trim' => '',
+				'custom_strtolower' => '',
+				'custom_strtoupper' => '',
+				'custom_ucfirst' => '',
+      ),
+      // You can usually leave 'multiple values' as follows:
+      'multiple values' => FIELD_BEHAVIOR_DEFAULT,
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_settings_form().
+ */
+function simple_field_formatter_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
+  //This gets the view_mode where our settings are stored
+  $display = $instance['display'][$view_mode];
+  //This gets the actual settings
+  $settings = $display['settings'];
+  //Initialize the element variable
+  $element = array();
+	  $element['custom_prefix'] = array(
+    '#type'           => 'textfield',                        // Use a textbox
+    '#title'          => t('Prefix'),                      // Widget label
+    '#description'    => t('Prefix will display before the content.'),  // helper text
+    '#default_value'  => $settings['custom_prefix'],               // Get the value if it's already been set
+  );
+  $element['custom_suffix'] = array(
+    '#type'           => 'textfield',                        // Use a textbox
+    '#title'          => t('Suffix'),                      // Widget label
+    '#description'    => t('Suffix will display after the content.'),  // helper text
+    '#default_value'  => $settings['custom_suffix'],               // Get the value if it's already been set
+  );
+	$element['custom_reverse'] = array(
+    '#type'           => 'checkbox',                        // Use a textbox
+    '#title'          => t('Reverse'),                      // Widget label
+    '#description'    => t('Reverses the Content.'),  // helper text
+    '#default_value'  => $settings['custom_reverse'],               // Get the value if it's already been set
+  );
+	$element['custom_trim'] = array(
+    '#type'           => 'checkbox',                        // Use a textbox
+    '#title'          => t('Trim'),                      // Widget label
+    '#description'    => t('Removes Leading & trailing spaces from the Content.'),  // helper text
+    '#default_value'  => $settings['custom_trim'],               // Get the value if it's already been set
+  );
+	$element['custom_strtolower'] = array(
+    '#type'           => 'checkbox',                        // Use a textbox
+    '#title'          => t('strtolower'),                      // Widget label
+    '#description'    => t('Converts a string to lowercase letters.'),  // helper text
+    '#default_value'  => $settings['custom_strtolower'],               // Get the value if it's already been set
+  );
+	$element['custom_strtoupper'] = array(
+    '#type'           => 'checkbox',                        // Use a textbox
+    '#title'          => t('strtoupper'),                      // Widget label
+    '#description'    => t('Converts a string to uppercase letters.'),  // helper text
+    '#default_value'  => $settings['custom_strtoupper'],               // Get the value if it's already been set
+  );
+	$element['custom_ucfirst'] = array(
+    '#type'           => 'checkbox',                        // Use a textbox
+    '#title'          => t('ucfirst'),                      // Widget label
+    '#description'    => t('Converts the first character of a string to uppercase.'),  // helper text
+    '#default_value'  => $settings['custom_ucfirst'],               // Get the value if it's already been set
+  );
+  return $element;
+}
+
+/**
+ * Implements hook_field_formatter_settings_summary().
+ */
+function simple_field_formatter_field_formatter_settings_summary($field, $instance, $view_mode) {
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];
+  $summary = t('<strong>Prefix:</strong> @custom_prefix <br/> <strong>Suffix:</strong> @custom_suffix<br/> <strong>Reverse:</strong> @custom_reverse<br/> <strong>Trim:</strong> @custom_trim<br/> <strong>strtolower:</strong> @custom_strtolower<br/> <strong>strtoupper:</strong> @custom_strtoupper<br/> <strong>ucfirst:</strong> @custom_ucfirst', array(
+    '@custom_prefix'     => $settings['custom_prefix'],
+    '@custom_suffix'  => $settings['custom_suffix'],
+		'@custom_reverse'  => $settings['custom_reverse'],
+		'@custom_trim'  => $settings['custom_trim'],
+		'@custom_strtolower'  => $settings['custom_strtolower'],
+		'@custom_strtoupper'  => $settings['custom_strtoupper'],
+		'@custom_ucfirst'  => $settings['custom_ucfirst'],
+  )); // we use t() for translation and placeholders to guard against attacks
+  return $summary;
+}
+ 
+/**
+ * Implements hook_field_formatter_view(). This code just passes straight
+ * through to a theme function, simple_field_formatter_formatter_FORMATTER
+ * (e.g. simple_field_formatter_formatter_simple_field_formatter_absolute_url).
+ */
+function simple_field_formatter_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array(); // Initialize the var
+  $settings = $display['settings']; // get the settings
+  $custom_prefix = $settings['custom_prefix']; 
+  $custom_suffix = $settings['custom_suffix']; 
+	
+	$custom_reverse = $settings['custom_reverse']; 
+  $custom_trim = $settings['custom_trim']; 
+	$custom_strtolower = $settings['custom_strtolower']; 
+  $custom_strtoupper = $settings['custom_strtoupper']; 
+	$custom_ucfirst = $settings['custom_ucfirst']; 
+  
+
+  foreach ($items as $delta => $item) {
+    $original_value = $item['safe_value']; // Getting the actual value
+		
+		if($custom_reverse){
+			$original_value = strrev($original_value);
+		}
+		if($custom_trim){
+			$original_value = trim($original_value);
+		}
+		if($custom_strtolower){
+			$original_value = strtolower($original_value);
+		}
+		if($custom_strtoupper){
+			$original_value = strtoupper($original_value);
+		}
+		if($custom_ucfirst){
+			$original_value = ucfirst($original_value);
+		}
+		$modified_value = $custom_prefix . $original_value . $custom_suffix;
+		$element[$delta]['#markup'] = $modified_value;
+  }
+
+  return $element;
+}
+

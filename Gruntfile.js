@@ -12,6 +12,8 @@ var themePath = 'docroot/sites/all/themes/custom/wellnesspolygon/';
 var libraryPath = 'docroot/sites/all/libraries/';
 var themeFileNames = 'wp';
 
+const sass = require('node-sass');
+
 module.exports = function (grunt) {
   'use strict';
   grunt.initConfig({
@@ -85,6 +87,7 @@ module.exports = function (grunt) {
           [themePath + 'css/' + themeFileNames + '.min.css']: themePath + 'scss/style.scss'
         },
         options: {
+          implementation: sass,
           sourceMap: true,
           outputStyle: 'expanded'
         }
@@ -94,6 +97,7 @@ module.exports = function (grunt) {
           [themePath + 'css/' + themeFileNames + '.min.css']: themePath + 'scss/style.scss'
         },
         options: {
+          implementation: sass,
           sourceMap: false,
           outputStyle: 'compressed'
         }
@@ -128,7 +132,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-exec');
 
-  grunt.registerTask('prod', ['clean:js', 'sass_globbing', 'concat', 'uglify:prod', 'sass:prod']);
+  grunt.registerTask('prod', ['clean:js', 'sass_globbing', 'concat', 'sass:prod']);
   // By default, run grunt with dev settings.
   grunt.registerTask('default', ['clean:js', 'sass_globbing', 'concat', 'uglify:dev', 'sass:dev']);
 };

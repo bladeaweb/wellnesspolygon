@@ -1,0 +1,36 @@
+{
+  "name": "drupalway/nova-poshta-guzzle",
+  "type": "library",
+  "description": "Service integration API for the commerce_shipping module.",
+  "homepage": "https://github.com/vladdancer/nova-poshta-guzzle",
+  "authors": [
+    {
+      "name": "Vladyslav Moiseienko",
+      "email": "vlmo@drupalway.net",
+      "role": "Developer"
+    },
+    {
+      "name": "Valentine Matsveiko",
+      "email": "mve@drupalway.net",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/vladdancer/nova-poshta-guzzle/issues"
+  },
+  "license": "MIT",
+  "require": {
+    "php": ">=5.4",
+    "guzzlehttp/guzzle-services": "0.5.*"
+  },
+  "require-dev": {
+    "guzzlehttp/log-subscriber": "~1.0",
+    "phpunit/phpunit": "4.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Drupalway\\NovaPoshta\\": "src/",
+      "Drupalway\\NovaPoshta\\Tests\\": "test/"
+    }
+  }
+}

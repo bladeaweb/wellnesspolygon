@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * @file
+ * ajax_facets.install file.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function ajax_facets_requirements($phase) {
+  $requirements = array();
+  $t = get_t();
+
+  switch ($phase) {
+    case 'runtime':
+      $description = $t('For now browser ajax history feature works only in HTML5 browsers. If you want to get this feature on HTML4 browsers you need to install libraries module and download history.js library.');
+      $value = $t('Libraries module not installed.');
+
+      if (module_exists('libraries')) {
+        if (!libraries_get_path('history.js')) {
+          $description = $t('For now browser ajax history feature works only in HTML5 browsers. If you want to get this feature on HTML4 browsers you need to download history.js library.');
+          $value = $t('Library history.js not found.');
+        }
+        else {
+          $description = $t('For now browser ajax history feature works both in HTML4 and HTML5 browsers.');
+          $value = $t('Works with history.js library');
+        }
+      }
+
+      $requirements['ajax_facets_message'] = array(
+        'title' => $t('Ajax Facets'),
+        'description' => $description,
+        'value' => $value,
+        'severity' => REQUIREMENT_INFO,
+      );
+      break;
+  }
+
+  return $requirements;
+}

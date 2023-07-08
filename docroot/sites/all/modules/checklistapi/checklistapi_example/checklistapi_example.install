@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Install, update & uninstall functions for the Checklist API Example module.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function checklistapi_example_uninstall() {
+  // Remove saved progress.
+  variable_del('checklistapi_checklist_example_checklist');
+}

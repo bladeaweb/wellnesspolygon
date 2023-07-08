@@ -1,0 +1,26 @@
+name: wellnesspolygon
+recipe: drupal7
+config:
+  webroot: docroot
+  php: '7.4'
+  database: mysql:5.7
+  drush: ^7
+  framework: drupal7
+
+services:
+  node:
+    type: node:16
+    globals:
+      npm: latest
+      grunt-cli: latest
+
+tooling:
+  drush:
+    cmd: "drush --root=/app/docroot"
+
+  npm:
+    service: node
+  node:
+    service: node
+  grunt:
+    service: node

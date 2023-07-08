@@ -1,0 +1,9 @@
+---
+
+- repo: git://github.com/innovative-media/pre-commit-php.git
+  sha: 1.0.0
+  hooks:
+  - id: php-cs
+    files: \.(php|inc)$
+    exclude: ^(vendor)
+    args: [--standard=Drupal] #--extensions='php,inc'

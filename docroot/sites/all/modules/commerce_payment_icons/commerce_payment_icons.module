@@ -1,0 +1,67 @@
+<?php
+
+/*
+ * This is a fairly useless module, but until some structure is created in Drupa Commerce 
+ * for handling this, I'll be using this module. You'll need to edit it to fit your own 
+ * needs
+ */
+
+function commerce_payment_icons_commerce_payment_methods_alter(&$order) {
+  if(empty($order->payment_methods)) {
+    return;
+  }
+
+  //dpm(array('before order' => $order));
+  foreach($order->payment_methods as $key => $payment_method) {
+    $payment_types = array();
+    // Define which images we'd like to show for particular processors
+    switch($payment_method['method_id']) {
+      case 'authnet_aim':
+        // Supports: Visa, MasterCard, American Express, Discover, Diners Club, JCB
+        $payment_types = array('visa', 'mastercard', 'amex', 'discover'); //, 'diners', 'jbc');
+        break;
+
+      case 'paypal_wpp':
+        // Supports: Visa, MasterCard, American Express, Discover, Maestro, Solo
+        if(!empty($order->payment_methods[$key]['settings']['card_types'])) {
+          foreach($order->payment_methods[$key]['settings']['card_types'] as $card_key => $enabled) {
+            if(!empty($enabled)) {
+              $payment_types[] = $card_key;
+            }
+          }
+        }
+        break;
+
+      case 'paypal_wps':
+        // Supports: Paypal and eCheck
+        $payment_types = array('paypal', 'echeck');
+        break;
+    }
+
+    $title_prefix = '';
+
+    foreach($payment_types as $payment_type) {
+      // Check to see if the image exists
+      $image_path = drupal_get_path('module', 'commerce_payment_icons') . '/images/' . $payment_type . '.gif';
+      if(file_exists($image_path)) {
+        $title_prefix .= theme('image', array('path' => $image_path)) .  ' ';
+      }
+    }
+
+    if(!empty($title_prefix)) {
+      // Taken from commerce_payment.module 
+
+      // Default the display title to the title if necessary.  The display title
+      // is used in instances where the payment method has an official name used
+      // as the title (i.e. PayPal WPS) but a different method of display on
+      // selection forms (like some text and a set of images).
+      if (empty($order->payment_methods[$key]['display_title'])) {
+        $order->payment_methods[$key]['display_title'] = 'what' . $key; //$order->payment_methods[$key]['title'];
+      }
+
+      $order->payment_methods[$key]['display_title'] = $title_prefix . ' ' . $order->payment_methods[$key]['display_title'];
+    }
+
+  }
+}
+

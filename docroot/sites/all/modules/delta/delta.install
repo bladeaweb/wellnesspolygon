@@ -1,0 +1,69 @@
+<?php
+
+/**
+ * @file
+ * Contains install, update, and uninstall functions for Skinr.
+ */
+
+/**
+ * Implementation of hook_schema.
+ */
+function delta_schema() {
+  $schema['delta_theme_settings'] = array(
+    'description' => t('Stores theme-settings templates that allow overriding the theme settings used based on various contexts.'),
+    'fields' => array(
+      'tid' => array(
+        'description' => 'The unique ID of the theme settings template',
+        'type' => 'serial',
+        'length' => 5,
+        'not null' => TRUE,
+      ),
+      'name' => array(
+        'description' => 'The friendly name of this theme settings template.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'system_name' => array(
+        'description' => 'The system name of this theme settings template.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'theme' => array(
+        'description' => 'The theme for which this theme settings template is relevant.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'data' => array(
+        'description' => t('Serialized data which is a copy of the theme settings array stored in the system table based on these overrides'),
+        'type' => 'text',
+        'size' => 'big',
+        'not null' => TRUE,
+        'serialize' => TRUE,
+      ),
+    ),
+    'primary key' => array('tid'),
+    'indexes' => array(
+      'theme' => array('theme'),
+      'system_name' => array('system_name'),
+      'tid' => array('tid'),
+    ),
+  );
+
+  return $schema;
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function delta_uninstall() {
+  // Remove all skinr variables.
+  db_delete('variable')
+    ->condition('name', 'delta_%', 'LIKE')
+    ->execute();
+}

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+        bootstrap="./test/bootstrap.php"
+        colors="true"
+        convertErrorsToExceptions="true"
+        convertNoticesToExceptions="true"
+        convertWarningsToExceptions="true"
+        verbose="true"
+        stopOnFailure="false"
+        processIsolation="false"
+        backupGlobals="false"
+        syntaxCheck="true"
+        >
+    <testsuites>
+        <testsuite name="nova-poshta-client">
+            <directory suffix="Test.php">./test</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <ini name="error_reporting" value="2147483647"/> <!-- E_ALL -->
+    </php>
+    <logging>
+        <log type="junit" target="shippable/testresults/junit.xml"/>
+    </logging>
+</phpunit>

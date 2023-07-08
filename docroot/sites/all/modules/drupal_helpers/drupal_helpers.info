@@ -1,0 +1,17 @@
+name = Drupal Helpers
+description = Collection of Drupal helper functions and classes.
+core = 7.x
+
+dependencies[] = drupal:system (>= 7.40)
+dependencies[] = xautoload:xautoload
+
+files[] = tests/drupal_helpers.test
+files[] = tests/drupal_helpers.random.test
+files[] = tests/drupal_helpers.utility.test
+files[] = tests/drupal_helpers.variable.test
+
+; Information added by Drupal.org packaging script on 2020-02-24
+version = "7.x-1.6"
+core = "7.x"
+project = "drupal_helpers"
+datestamp = "1582514028"

@@ -1,0 +1,52 @@
+<?php
+
+/**
+ * @file Provide contextual theme settings via context module
+ */
+
+/**
+ * Implementation of hook_context_plugins().
+ *
+ * This is a ctools plugins hook.
+ */
+function delta_context_plugins() {
+  $plugins = array();
+  $plugins['context_reaction_delta'] = array(
+    'handler' => array(
+      'path' => drupal_get_path('module', 'delta') .'/plugins',
+      'file' => 'context_reaction_delta.inc',
+      'class' => 'context_reaction_delta',
+      'parent' => 'context_reaction',
+    ),
+  );
+  return $plugins;
+}
+
+/**
+ * Implementation of hook_context_registry().
+ */
+function delta_context_registry() {
+  $registry = array();
+  $registry['reactions']['delta'] = array(
+    'title' => t('Delta'),
+    'description' => t('Apply contextual theme settings via the Delta module.'),
+    'plugin' => 'context_reaction_delta',
+  );
+  return $registry;
+}
+
+/**
+ * Implementation of hook_context_page_reaction().
+ */
+function delta_context_page_reaction() {
+  
+}
+
+/**
+ * Implementation of hook_page_alter().
+ */
+function delta_preprocess_page(&$vars) {
+  if ($plugin = context_get_plugin('reaction', 'delta')) {
+    $plugin->execute($vars);
+  }
+}
