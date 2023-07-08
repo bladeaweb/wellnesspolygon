@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'WebDriver' => array($vendorDir . '/instaclick/php-webdriver/lib'),
+    'Drush' => array($vendorDir . '/drush/drush/lib'),
     'Drupal\\drupal_helpers\\' => array($baseDir . '/docroot/sites/all/modules/drupal_helpers/lib'),
     'Drupal\\Tests\\Driver' => array($vendorDir . '/drupal/drupal-driver/tests'),
     'Drupal\\Exception' => array($vendorDir . '/drupal/drupal-extension/src'),

@@ -52,6 +52,17 @@ services:
       - ./:/var/www/html
     command: certonly --webroot --webroot-path=/var/www/html/docroot --email v.starovoit@icloud.com  --agree-tos --no-eff-email --force-renewal -d wellnesspolygon.com.ua -d www.wellnesspolygon.com.ua
 
+  drush:
+    container_name: drush
+    image: drush/drush:8
+    volumes_from:
+      - drupal
+    links:
+      - mysql:mysql
+    entrypoint:
+      - drush
+      - "--root=/var/www/html/docroot --uri=wellnesspolygon.com.ua"
+
 networks:
   external:
     driver: bridge

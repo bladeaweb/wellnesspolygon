@@ -35,7 +35,7 @@ trait TranslatorTrait
      */
     public function getLocale()
     {
-        return $this->locale ?: \Locale::getDefault();
+        return $this->locale ?: (class_exists(\Locale::class) ? \Locale::getDefault() : 'en');
     }
 
     /**
@@ -43,7 +43,9 @@ trait TranslatorTrait
      */
     public function trans($id, array $parameters = [], $domain = null, $locale = null)
     {
-        $id = (string) $id;
+        if ('' === $id = (string) $id) {
+            return '';
+        }
 
         if (!isset($parameters['%count%']) || !is_numeric($parameters['%count%'])) {
             return strtr($id, $parameters);
@@ -90,8 +92,8 @@ EOF;
                         }
                     }
                 } else {
-                    $leftNumber = '-Inf' === $matches['left'] ? -INF : (float) $matches['left'];
-                    $rightNumber = \is_numeric($matches['right']) ? (float) $matches['right'] : INF;
+                    $leftNumber = '-Inf' === $matches['left'] ? -\INF : (float) $matches['left'];
+                    $rightNumber = is_numeric($matches['right']) ? (float) $matches['right'] : \INF;
 
                     if (('[' === $matches['left_delimiter'] ? $number >= $leftNumber : $number > $leftNumber)
                         && (']' === $matches['right_delimiter'] ? $number <= $rightNumber : $number < $rightNumber)
@@ -117,7 +119,7 @@ EOF;
 
             $message = sprintf('Unable to choose a translation for "%s" with locale "%s" for value "%d". Double check that this translation has the correct plural options (e.g. "There is one apple|There are %%count%% apples").', $id, $locale, $number);
 
-            if (\class_exists(InvalidArgumentException::class)) {
+            if (class_exists(InvalidArgumentException::class)) {
                 throw new InvalidArgumentException($message);
             }
 
@@ -134,9 +136,11 @@ EOF;
      * which is subject to the new BSD license (http://framework.zend.com/license/new-bsd).
      * Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
      */
-    private function getPluralizationRule(int $number, string $locale): int
+    private function getPluralizationRule(float $number, string $locale): int
     {
-        switch ('pt_BR' !== $locale && \strlen($locale) > 3 ? substr($locale, 0, strrpos($locale, '_')) : $locale) {
+        $number = abs($number);
+
+        switch ('pt_BR' !== $locale && 'en_US_POSIX' !== $locale && \strlen($locale) > 3 ? substr($locale, 0, strrpos($locale, '_')) : $locale) {
             case 'af':
             case 'bn':
             case 'bg':
@@ -145,6 +149,7 @@ EOF;
             case 'de':
             case 'el':
             case 'en':
+            case 'en_US_POSIX':
             case 'eo':
             case 'es':
             case 'et':
@@ -203,7 +208,7 @@ EOF;
             case 'pt_BR':
             case 'ti':
             case 'wa':
-                return ((0 == $number) || (1 == $number)) ? 0 : 1;
+                return ($number < 2) ? 0 : 1;
 
             case 'be':
             case 'bs':

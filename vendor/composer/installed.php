@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '5d0343ac0f9cbefe182b10cd82ebc3986129a0a1',
+        'reference' => '13d7d92a8221ebfa5ff1f7bc9933bd7864556c72',
         'name' => 'sharkov/wellnesspolygon',
         'dev' => true,
     ),
@@ -2256,6 +2256,15 @@
             'reference' => '7.x-2.7',
             'dev_requirement' => false,
         ),
+        'drush/drush' => array(
+            'pretty_version' => '8.0.5',
+            'version' => '8.0.5.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../drush/drush',
+            'aliases' => array(),
+            'reference' => '1f53daa63505f18286791e899de614e27d4cfdc9',
+            'dev_requirement' => true,
+        ),
         'fabpot/goutte' => array(
             'pretty_version' => 'v2.0.4',
             'version' => '2.0.4.0',
@@ -2400,11 +2409,29 @@
             'reference' => '3691e7d67274f8f00817e5631d93d8fae6f673f0',
             'dev_requirement' => false,
         ),
+        'nikic/php-parser' => array(
+            'pretty_version' => 'v4.16.0',
+            'version' => '4.16.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../nikic/php-parser',
+            'aliases' => array(),
+            'reference' => '19526a33fb561ef417e822e85f08a00db4059c17',
+            'dev_requirement' => true,
+        ),
         'orno/di' => array(
             'dev_requirement' => true,
             'replaced' => array(
                 0 => '~2.0',
             ),
+        ),
+        'pear/console_table' => array(
+            'pretty_version' => 'v1.3.1',
+            'version' => '1.3.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../pear/console_table',
+            'aliases' => array(),
+            'reference' => '1930c11897ca61fd24b95f2f785e99e0f36dcdea',
+            'dev_requirement' => true,
         ),
         'phpstan/phpdoc-parser' => array(
             'pretty_version' => '1.22.1',
@@ -2413,6 +2440,15 @@
             'install_path' => __DIR__ . '/../phpstan/phpdoc-parser',
             'aliases' => array(),
             'reference' => '65c39594fbd8c67abfc68bb323f86447bab79cc0',
+            'dev_requirement' => true,
+        ),
+        'psr/cache' => array(
+            'pretty_version' => '1.0.1',
+            'version' => '1.0.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../psr/cache',
+            'aliases' => array(),
+            'reference' => 'd11b50ad223250cf17b86e38383413f5a6764bf8',
             'dev_requirement' => true,
         ),
         'psr/container' => array(
@@ -2446,6 +2482,15 @@
                 0 => '1.0',
             ),
         ),
+        'psy/psysh' => array(
+            'pretty_version' => 'v0.11.18',
+            'version' => '0.11.18.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../psy/psysh',
+            'aliases' => array(),
+            'reference' => '4f00ee9e236fa6a48f4560d1300b9c961a70a7ec',
+            'dev_requirement' => true,
+        ),
         'react/promise' => array(
             'pretty_version' => 'v2.10.0',
             'version' => '2.10.0.0',
@@ -2473,7 +2518,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '5d0343ac0f9cbefe182b10cd82ebc3986129a0a1',
+            'reference' => '13d7d92a8221ebfa5ff1f7bc9933bd7864556c72',
             'dev_requirement' => false,
         ),
         'sirbrillig/phpcs-variable-analysis' => array(
@@ -2512,6 +2557,12 @@
             'reference' => 'b507697225f32a76a9d333d0766fb46353e9d00d',
             'dev_requirement' => true,
         ),
+        'symfony/cache-contracts' => array(
+            'dev_requirement' => true,
+            'replaced' => array(
+                0 => 'v1.1.13',
+            ),
+        ),
         'symfony/config' => array(
             'pretty_version' => 'v4.4.44',
             'version' => '4.4.44.0',
@@ -2531,12 +2582,12 @@
             'dev_requirement' => true,
         ),
         'symfony/contracts' => array(
-            'pretty_version' => 'v1.1.0',
-            'version' => '1.1.0.0',
+            'pretty_version' => 'v1.1.13',
+            'version' => '1.1.13.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/contracts',
             'aliases' => array(),
-            'reference' => 'd3636025e8253c6144358ec0a62773cae588395b',
+            'reference' => '9e27f5c175ecbd6fff554d839ff4a432da797168',
             'dev_requirement' => true,
         ),
         'symfony/css-selector' => array(
@@ -2584,6 +2635,12 @@
             'reference' => '31fde73757b6bad247c54597beef974919ec6860',
             'dev_requirement' => true,
         ),
+        'symfony/event-dispatcher-contracts' => array(
+            'dev_requirement' => true,
+            'replaced' => array(
+                0 => 'v1.1.13',
+            ),
+        ),
         'symfony/filesystem' => array(
             'pretty_version' => 'v3.4.47',
             'version' => '3.4.47.0',
@@ -2601,6 +2658,12 @@
             'aliases' => array(),
             'reference' => '078e9a5e1871fcfe6a5ce421b539344c21afef19',
             'dev_requirement' => true,
+        ),
+        'symfony/http-client-contracts' => array(
+            'dev_requirement' => true,
+            'replaced' => array(
+                0 => 'v1.1.13',
+            ),
         ),
         'symfony/polyfill-ctype' => array(
             'pretty_version' => 'v1.27.0',
@@ -2647,6 +2710,12 @@
             'reference' => 'b8648cf1d5af12a44a51d07ef9bf980921f15fca',
             'dev_requirement' => true,
         ),
+        'symfony/service-contracts' => array(
+            'dev_requirement' => true,
+            'replaced' => array(
+                0 => 'v1.1.13',
+            ),
+        ),
         'symfony/translation' => array(
             'pretty_version' => 'v4.4.47',
             'version' => '4.4.47.0',
@@ -2657,13 +2726,10 @@
             'dev_requirement' => true,
         ),
         'symfony/translation-contracts' => array(
-            'pretty_version' => 'v2.5.2',
-            'version' => '2.5.2.0',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../symfony/translation-contracts',
-            'aliases' => array(),
-            'reference' => '136b19dd05cdf0709db6537d058bcab6dd6e2dbe',
             'dev_requirement' => true,
+            'replaced' => array(
+                0 => 'v1.1.13',
+            ),
         ),
         'symfony/translation-implementation' => array(
             'dev_requirement' => true,
@@ -2671,13 +2737,22 @@
                 0 => '1.0|2.0',
             ),
         ),
+        'symfony/var-dumper' => array(
+            'pretty_version' => 'v3.4.47',
+            'version' => '3.4.47.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/var-dumper',
+            'aliases' => array(),
+            'reference' => '0719f6cf4633a38b2c1585140998579ce23b4b7d',
+            'dev_requirement' => true,
+        ),
         'symfony/yaml' => array(
-            'pretty_version' => 'v4.4.45',
-            'version' => '4.4.45.0',
+            'pretty_version' => 'v3.4.47',
+            'version' => '3.4.47.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/yaml',
             'aliases' => array(),
-            'reference' => 'aeccc4dc52a9e634f1d1eebeb21eacfdcff1053d',
+            'reference' => '88289caa3c166321883f67fe5130188ebbb47094',
             'dev_requirement' => true,
         ),
     ),

@@ -4,7 +4,7 @@ config:
   webroot: docroot
   php: '7.4'
   database: mysql:5.7
-  drush: ^7
+  drush: ^8
   framework: drupal7
 
 services:
