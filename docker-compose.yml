@@ -47,7 +47,7 @@ services:
     container_name: certbot
     volumes:
       - certbot-etc:/etc/letsencrypt
-      - drupal-data:/var/www/html
+      - ./:/var/www/html
     command: certonly --webroot --webroot-path=/var/www/html/docroot --email v.starovoit@icloud.com  --agree-tos --no-eff-email --force-renewal -d wellnesspolygon.com.ua -d www.wellnesspolygon.com.ua
 
 networks:
