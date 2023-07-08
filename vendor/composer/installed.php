@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '13d7d92a8221ebfa5ff1f7bc9933bd7864556c72',
+        'reference' => '3ec3653d7c975044c91e39bd77c396b0f002182e',
         'name' => 'sharkov/wellnesspolygon',
         'dev' => true,
     ),
@@ -895,6 +895,15 @@
             'aliases' => array(),
             'reference' => '14cc3fae9c02333ae7f47503065a24c5e2794524',
             'dev_requirement' => true,
+        ),
+        'drupal/css_injector' => array(
+            'pretty_version' => '1.10.0',
+            'version' => '1.10.0.0',
+            'type' => 'drupal-module',
+            'install_path' => __DIR__ . '/../../docroot/sites/all/modules/css_injector',
+            'aliases' => array(),
+            'reference' => '7.x-1.10',
+            'dev_requirement' => false,
         ),
         'drupal/ctools' => array(
             'pretty_version' => '1.21.0',
@@ -2518,7 +2527,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '13d7d92a8221ebfa5ff1f7bc9933bd7864556c72',
+            'reference' => '3ec3653d7c975044c91e39bd77c396b0f002182e',
             'dev_requirement' => false,
         ),
         'sirbrillig/phpcs-variable-analysis' => array(

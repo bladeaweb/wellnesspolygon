@@ -6045,6 +6045,73 @@
             "install-path": "../drupal/core-utility"
         },
         {
+            "name": "drupal/css_injector",
+            "version": "1.10.0",
+            "version_normalized": "1.10.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/css_injector.git",
+                "reference": "7.x-1.10"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/css_injector-7.x-1.10.zip",
+                "reference": "7.x-1.10",
+                "shasum": "ce4fc2da4f06ea2e5228623a51fceeeee54ced88"
+            },
+            "require": {
+                "drupal/drupal": "~7.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "7.x-1.10",
+                    "datestamp": "1387292906",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "installation-source": "dist",
+            "notification-url": "https://packages.drupal.org/7/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Dustin Currie",
+                    "homepage": "https://www.drupal.org/user/343251"
+                },
+                {
+                    "name": "add1sun",
+                    "homepage": "https://www.drupal.org/user/65088"
+                },
+                {
+                    "name": "eaton",
+                    "homepage": "https://www.drupal.org/user/16496"
+                },
+                {
+                    "name": "kreynen",
+                    "homepage": "https://www.drupal.org/user/48877"
+                },
+                {
+                    "name": "oresh",
+                    "homepage": "https://www.drupal.org/user/2282630"
+                },
+                {
+                    "name": "rfay",
+                    "homepage": "https://www.drupal.org/user/30906"
+                }
+            ],
+            "description": "Adds CSS to the page output based on configurable rules.",
+            "homepage": "https://www.drupal.org/project/css_injector",
+            "support": {
+                "source": "https://git.drupalcode.org/project/css_injector"
+            },
+            "install-path": "../../docroot/sites/all/modules/css_injector"
+        },
+        {
             "name": "drupal/ctools",
             "version": "1.21.0",
             "version_normalized": "1.21.0.0",
