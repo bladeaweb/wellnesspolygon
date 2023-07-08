@@ -32,7 +32,7 @@ $databases = [
       'default' =>
         [
           'database' => getenv('MYSQL_DATABASE'),
-          'username' => getenv('drupal7'),
+          'username' => getenv('MYSQL_USER'),
           'password' => getenv('MYSQL_PASSWORD'),
           'host' => 'mysql',
           'port' => '',
